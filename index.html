@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="安井税理士事務所 — 守りの税務から、攻めの経営へ。" />
+  <title>安井税理士事務所 | Yasui Tax Accounting Office</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Nova+Cut&family=Padyakke+Expanded+One&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="site-header">
+    <div class="site-header__inner">
+      <!-- Logo -->
+      <a href="#" class="site-logo" aria-label="安井税理士事務所 トップへ">
+        <img src="assets/img/logo.svg" alt="安井税理士事務所" class="site-logo__img" width="264" height="48" />
+      </a>
+
+      <!-- Main navigation (PC) -->
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <ul class="site-nav__list">
+          <li><a href="#features">私たちの強み</a></li>
+          <li><a href="#service">サービス</a></li>
+          <li><a href="#company">企業情報</a></li>
+          <li><a href="#case">事例紹介</a></li>
+          <li><a href="#info">お知らせ</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right cluster: TEL block + CTA button (PC) -->
+      <div class="site-header__actions">
+        <div class="site-header__tel">
+          <a href="tel:03XXXXXXXX" class="site-header__tel--tel">TEL<span class="site-header__tel--num">03-xxx-xxx</span></a>
+          <p class="site-header__tel-hours">受付時間：平日9:00〜18:00</p>
+        </div>
+        <a href="#cta" class="header-cta-btn">お問い合わせ</a>
+      </div>
+
+      <!-- Icon cluster + hamburger (SP only) -->
+      <div class="site-header__sp-actions" aria-hidden="false">
+        <a href="tel:03XXXXXXXX" class="sp-icon-btn" aria-label="電話する">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </a>
+        <a href="#" class="sp-icon-btn" aria-label="LINEで問い合わせ">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </a>
+        <a href="mailto:info@example.com" class="sp-icon-btn" aria-label="メールで問い合わせ">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+        <button type="button" class="hamburger" id="hamburger" aria-label="メニューを開く" aria-controls="site-nav" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO / FV ============ -->
+    <section class="hero" id="hero" aria-label="First view">
+      <!-- Background image (right ~75%) -->
+      <div class="hero__bg" role="img" aria-label="高層ビルの空に向かって伸びる景観"></div>
+
+      <!-- Slogan + English tagline (overlay).
+           HTML order: tagline first, then title — matches SP stacking.
+           On PC both are position:absolute so document order is irrelevant. -->
+      <div class="hero__inner">
+        <!-- SCROLL indicator (left edge) -->
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+          <span class="hero__scroll-text">SCROLL</span>
+        </div>
+        <p class="hero__tagline">
+          Partnering with you for the next<br />
+          decade of success.<br />
+          — Yasui Tax Accounting Office
+        </p>
+
+        <h1 class="hero__title">
+          <span class="hero__title-line"><span class="hero__title-text">守りの税務から、</span></span>
+          <span class="hero__title-line hero__title-line--indent"><span class="hero__title-text">攻めの経営へ。</span></span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES (三つのお約束) ============ -->
+    <section class="features" id="features" aria-labelledby="features-title">
+      <div class="features__inner">
+        <h2 class="features__heading" data-reveal>
+          <span class="features__heading-en" aria-hidden="true">Features</span>
+          <span class="features__heading-jp" id="features-title">
+            私たちの強み <span class="features__heading-sub">-3つのお約束-</span>
+          </span>
+        </h2>
+
+        <!-- 3-circle Venn diagram -->
+        <div class="features__venn" role="img" aria-label="3つの約束のベン図" data-reveal data-reveal-delay="1">
+          <div class="venn-circle venn-circle--01">
+            <span class="venn-circle__shine" aria-hidden="true"></span>
+            <p class="venn-circle__promise">Promise</p>
+            <p class="venn-circle__num">01</p>
+            <p class="venn-circle__desc">「徹底した対話」で、<br />不安を安心に変えます</p>
+          </div>
+          <div class="venn-circle venn-circle--02">
+            <span class="venn-circle__shine" aria-hidden="true"></span>
+            <p class="venn-circle__promise">Promise</p>
+            <p class="venn-circle__num">02</p>
+            <p class="venn-circle__desc">「迅速なレスポンス」で、<br />経営のスピードを止めません</p>
+          </div>
+          <div class="venn-circle venn-circle--03">
+            <span class="venn-circle__shine" aria-hidden="true"></span>
+            <p class="venn-circle__promise">Promise</p>
+            <p class="venn-circle__num">03</p>
+            <p class="venn-circle__desc">「一歩先の提案」で、<br />共に未来を創ります</p>
+          </div>
+        </div>
+
+        <!-- Description text (extra <br> for SP-only break) -->
+        <p class="features__desc">
+          安井税理士事務所は、経営者様が抱える<br />
+          「言葉の壁」「時間の壁」「未来への壁」<br class="features__br--sp" />を取り払うために、<br />
+          3つのルールを徹底しています。
+        </p>
+        <p class="features__desc">
+          決断の連続である経営者様を一人で悩ませないよう、<br />
+          迅速な回答で不安を即座に解消し、<br />
+          常に伴走し続ける安心感をご提供します。
+        </p>
+
+        <a href="#" class="detail-btn features__btn">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">詳しく見る</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ SERVICE + CASE (shared gradient wrapper) ============ -->
+    <div class="service-case-bg">
+
+    <!-- ============ SERVICE ============ -->
+    <section class="service" id="service" aria-labelledby="service-title" data-reveal>
+      <div class="service__inner">
+        <h2 class="service__heading" data-reveal>
+          <span class="service__heading-en" aria-hidden="true">Service</span>
+          <span class="service__heading-jp" id="service-title">サービス</span>
+        </h2>
+
+        <!-- Decorative logo behind list (opacity 0.1) -->
+        <img src="assets/img/logo-icon.svg" alt="" class="service__logo-deco" aria-hidden="true" />
+
+        <!-- Top-right button: View case list -->
+        <a href="#" class="detail-btn service__btn">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">事例一覧を見る</span>
+        </a>
+
+        <!-- Consultant image (left) -->
+        <div class="service__image" role="img" aria-label="コンサルティングの様子"></div>
+
+        <!-- Description text (below image, left column) -->
+        <p class="service__desc">
+          テキストが入ります。テキストが入ります。テキストが入ります。<br />
+          テキストが入ります。テキストが入ります。テキストが入ります。<br />
+          テキストが入ります。テキストが入ります。テキストが入ります。
+        </p>
+
+        <!-- Decorative frame around the service list:
+             top-left slash + top line, bottom line + bottom-right slash -->
+        <span class="service__deco service__deco--top-line" aria-hidden="true"></span>
+        <span class="service__deco service__deco--bottom-line" aria-hidden="true"></span>
+        <span class="service__deco service__deco--slash-tl" aria-hidden="true"></span>
+        <span class="service__deco service__deco--slash-br" aria-hidden="true"></span>
+
+        <!-- Service items list (right column / SP center) -->
+        <ul class="service__list">
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">01</span>
+            <span class="service-item__name">税務顧問</span>
+            <span class="service-item__en">advisory</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">02</span>
+            <span class="service-item__name">決算・記帳代行</span>
+            <span class="service-item__en">accounting</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">03</span>
+            <span class="service-item__name">確定申告代行</span>
+            <span class="service-item__en">tax-return</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">04</span>
+            <span class="service-item__name">月次給与・賞与計算</span>
+            <span class="service-item__en">payroll</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">05</span>
+            <span class="service-item__name">起業・スタートアップの支援</span>
+            <span class="service-item__en">startup</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="service-item" data-reveal>
+            <span class="service-item__num">06</span>
+            <span class="service-item__name">節税対策</span>
+            <span class="service-item__en">tax-planning</span>
+            <span class="service-item__accent" aria-hidden="true"></span>
+          </li>
+        </ul>
+
+        <!-- SP-only button at bottom -->
+        <a href="#" class="detail-btn service__btn-sp">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">サービス一覧を見る</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ CASE (事例紹介) ============ -->
+    <section class="case" id="case" aria-labelledby="case-title">
+      <div class="case__inner">
+        <h2 class="case__heading" data-reveal>
+          <span class="case__heading-en" aria-hidden="true">Case</span>
+          <span class="case__heading-jp" id="case-title">事例紹介</span>
+        </h2>
+
+        <!-- Top-right button -->
+        <a href="#" class="detail-btn case__btn">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">事例一覧を見る</span>
+        </a>
+
+        <!-- Case items -->
+        <ul class="case__list">
+          <!-- Case 1 -->
+          <li class="case-item" data-reveal>
+            <span class="case-deco case-deco--tl" aria-hidden="true"></span>
+            <span class="case-deco case-deco--tline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--bline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--br" aria-hidden="true"></span>
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-tr" aria-hidden="true" />
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-bl" aria-hidden="true" />
+
+            <div class="case-item__image" role="img" aria-label="事例画像"></div>
+            <span class="case-item__tag" aria-hidden="true"></span>
+            <h3 class="case-item__title">題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。</h3>
+            <p class="case-item__desc">
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。
+            </p>
+            <div class="case-item__footer">
+              <p class="case-item__client">株式会社◯◯◯様</p>
+              <a href="#" class="detail-btn case-item__btn case-item__btn--light">
+                <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+                <span class="detail-btn__accent" aria-hidden="true"></span>
+                <span class="detail-btn__label">詳しく見る</span>
+              </a>
+            </div>
+          </li>
+
+          <!-- Case 2 -->
+          <li class="case-item" data-reveal data-reveal-delay="1">
+            <span class="case-deco case-deco--tl" aria-hidden="true"></span>
+            <span class="case-deco case-deco--tline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--bline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--br" aria-hidden="true"></span>
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-tr" aria-hidden="true" />
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-bl" aria-hidden="true" />
+
+            <div class="case-item__image" role="img" aria-label="事例画像"></div>
+            <span class="case-item__tag" aria-hidden="true"></span>
+            <h3 class="case-item__title">題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。</h3>
+            <p class="case-item__desc">
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。
+            </p>
+            <div class="case-item__footer">
+              <p class="case-item__client">株式会社◯◯◯様</p>
+              <a href="#" class="detail-btn case-item__btn case-item__btn--light">
+                <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+                <span class="detail-btn__accent" aria-hidden="true"></span>
+                <span class="detail-btn__label">詳しく見る</span>
+              </a>
+            </div>
+          </li>
+
+          <!-- Case 3 -->
+          <li class="case-item" data-reveal data-reveal-delay="2">
+            <span class="case-deco case-deco--tl" aria-hidden="true"></span>
+            <span class="case-deco case-deco--tline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--bline" aria-hidden="true"></span>
+            <span class="case-deco case-deco--br" aria-hidden="true"></span>
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-tr" aria-hidden="true" />
+            <img src="assets/img/slossy-icon.svg" alt="" class="case-deco case-deco--star-bl" aria-hidden="true" />
+
+            <div class="case-item__image" role="img" aria-label="事例画像"></div>
+            <span class="case-item__tag" aria-hidden="true"></span>
+            <h3 class="case-item__title">題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。題名が入ります。</h3>
+            <p class="case-item__desc">
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。<br />
+              テキストが入ります。テキストが入ります。テキストが入ります。
+            </p>
+            <div class="case-item__footer">
+              <p class="case-item__client">株式会社◯◯◯様</p>
+              <a href="#" class="detail-btn case-item__btn case-item__btn--light">
+                <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+                <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+                <span class="detail-btn__accent" aria-hidden="true"></span>
+                <span class="detail-btn__label">詳しく見る</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        <!-- SP-only bottom button -->
+        <a href="#" class="detail-btn case__btn-sp case-item__btn--light">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent case__btn-sp-accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">事例紹介一覧を見る</span>
+        </a>
+      </div>
+    </section>
+
+    </div><!-- /.service-case-bg -->
+
+    <!-- ============ COMPANY (企業情報) ============ -->
+    <section class="company" id="company" aria-labelledby="company-title" data-reveal>
+      <div class="company__inner">
+        <h2 class="company__heading" data-reveal>
+          <span class="company__heading-en" aria-hidden="true">Company</span>
+          <span class="company__heading-jp" id="company-title">企業情報</span>
+        </h2>
+
+        <!-- Items list (right column on PC) -->
+        <ul class="company__list">
+          <!-- Outer corner slashes — positioned absolute relative to list -->
+          <span class="company__corner company__corner--tl" aria-hidden="true"></span>
+          <span class="company__corner company__corner--br" aria-hidden="true"></span>
+          <!-- Item 1: 私たちの強み — with banner image background -->
+          <li class="company-item company-item--banner">
+            <a href="#" class="company-item__link">
+              <span class="company-item__label">私たちの強み</span>
+              <span class="company-item__arrow" aria-hidden="true">
+                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+              </span>
+            </a>
+            <span class="company-item__divider company-item__divider--top" aria-hidden="true"></span>
+            <span class="company-item__banner-accent-top" aria-hidden="true"></span>
+            <span class="company-item__banner-accent-bottom" aria-hidden="true"></span>
+          </li>
+
+          <!-- Item 2: 代表あいさつ -->
+          <li class="company-item">
+            <a href="#" class="company-item__link">
+              <span class="company-item__label">代表あいさつ</span>
+              <span class="company-item__arrow" aria-hidden="true">
+                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+              </span>
+            </a>
+            <span class="company-item__divider" aria-hidden="true"></span>
+            <span class="company-item__accent" aria-hidden="true"></span>
+          </li>
+
+          <!-- Item 3: 事務所概要 -->
+          <li class="company-item">
+            <a href="#" class="company-item__link">
+              <span class="company-item__label">事務所概要</span>
+              <span class="company-item__arrow" aria-hidden="true">
+                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+              </span>
+            </a>
+            <span class="company-item__divider" aria-hidden="true"></span>
+            <span class="company-item__accent" aria-hidden="true"></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ INFOMATION (お知らせ) ============ -->
+    <section class="info" id="info" aria-labelledby="info-title">
+      <div class="info__inner">
+        <h2 class="info__heading" data-reveal>
+          <span class="info__heading-en" aria-hidden="true">Infomation</span>
+          <span class="info__heading-jp" id="info-title">お知らせ</span>
+        </h2>
+
+        <!-- Top-right button (PC) -->
+        <a href="#" class="detail-btn info__btn">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">お知らせ一覧を見る</span>
+        </a>
+
+        <!-- Decorative logo (PC, behind list, opacity 0.1) -->
+        <img src="assets/img/logo-icon.svg" alt="" class="info__logo-deco" aria-hidden="true" />
+
+        <!-- News rows -->
+        <ul class="info__list">
+          <li class="info-item">
+            <p class="info-item__date">2026.05.18 ｜ お知らせが入ります</p>
+            <span class="info-item__tag" aria-hidden="true"></span>
+            <p class="info-item__desc">テキストが入ります。テキストが入ります。テキストが入ります。</p>
+            <span class="info-item__line" aria-hidden="true"></span>
+            <span class="info-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="info-item">
+            <p class="info-item__date">2026.05.18 ｜ お知らせが入ります</p>
+            <span class="info-item__tag" aria-hidden="true"></span>
+            <p class="info-item__desc">テキストが入ります。テキストが入ります。テキストが入ります。</p>
+            <span class="info-item__line" aria-hidden="true"></span>
+            <span class="info-item__accent" aria-hidden="true"></span>
+          </li>
+          <li class="info-item">
+            <p class="info-item__date">2026.05.18 ｜ お知らせが入ります</p>
+            <span class="info-item__tag" aria-hidden="true"></span>
+            <p class="info-item__desc">テキストが入ります。テキストが入ります。テキストが入ります。</p>
+            <span class="info-item__line" aria-hidden="true"></span>
+            <span class="info-item__accent" aria-hidden="true"></span>
+          </li>
+        </ul>
+
+        <!-- SP-only bottom button (green accent) -->
+        <a href="#" class="detail-btn info__btn-sp">
+          <span class="detail-btn__edge detail-btn__edge--t" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--b" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--l" aria-hidden="true"></span>
+          <span class="detail-btn__edge detail-btn__edge--r" aria-hidden="true"></span>
+          <span class="detail-btn__accent" aria-hidden="true"></span>
+          <span class="detail-btn__label">お知らせ一覧を見る</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta" id="cta" aria-label="お問い合わせ">
+      <div class="cta__inner">
+        <!-- Row 1: 3 cards, transparent style with ghost icon bg -->
+        <div class="cta__row cta__row--light">
+          <div class="cta-card" data-reveal>
+            <span class="cta-card__edge cta-card__edge--t" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--b" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--l" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--r" aria-hidden="true"></span>
+            <img src="assets/img/phone-icon.svg" alt="" class="cta-card__bg-icon" aria-hidden="true" />
+            <h3 class="cta-card__title">お電話でのお問い合わせ</h3>
+            <p class="cta-card__desc">受付時間：平日9:00〜18:00<br />定休日：土日祝</p>
+            <a href="tel:03XXXXXXXX" class="cta-card__btn">公式LINEを追加する</a>
+          </div>
+          <div class="cta-card" data-reveal data-reveal-delay="1">
+            <span class="cta-card__edge cta-card__edge--t" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--b" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--l" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--r" aria-hidden="true"></span>
+            <img src="assets/img/line-icon.svg" alt="" class="cta-card__bg-icon" aria-hidden="true" />
+            <h3 class="cta-card__title">LINEでのお問い合わせ</h3>
+            <p class="cta-card__desc">LINEアカウントの[友だち追加]<br />またはQRコードから追加ください。</p>
+            <a href="#" class="cta-card__btn">公式LINEを追加する</a>
+          </div>
+          <div class="cta-card" data-reveal data-reveal-delay="2">
+            <span class="cta-card__edge cta-card__edge--t" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--b" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--l" aria-hidden="true"></span>
+            <span class="cta-card__edge cta-card__edge--r" aria-hidden="true"></span>
+            <img src="assets/img/mail-icon.svg" alt="" class="cta-card__bg-icon" aria-hidden="true" />
+            <h3 class="cta-card__title">メールでのお問い合わせ</h3>
+            <p class="cta-card__desc">お問い合わせページのフォームから<br />お気軽にご相談ください。</p>
+            <a href="#" class="cta-card__btn">お問い合わせ</a>
+          </div>
+        </div>
+
+        <!-- Row 2: 3 cards with image backgrounds (PC only) -->
+        <div class="cta__row cta__row--image">
+          <div class="cta-card cta-card--image">
+            <h3 class="cta-card__title">お電話でのお問い合わせ</h3>
+            <p class="cta-card__desc">受付時間：平日9:00〜18:00<br />定休日：土日祝</p>
+            <a href="tel:03XXXXXXXX" class="cta-card__btn cta-card__btn--filled">03-XXX-XXXXにかける</a>
+          </div>
+          <div class="cta-card cta-card--image">
+            <h3 class="cta-card__title">LINEでのお問い合わせ</h3>
+            <p class="cta-card__desc">LINEアカウントの[友だち追加]<br />またはQRコードから追加ください。</p>
+            <a href="#" class="cta-card__btn cta-card__btn--filled">公式LINEを追加する</a>
+          </div>
+          <div class="cta-card cta-card--image">
+            <h3 class="cta-card__title">メールでのお問い合わせ</h3>
+            <p class="cta-card__desc">お問い合わせページのフォームから<br />お気軽にご相談ください。</p>
+            <a href="#" class="cta-card__btn cta-card__btn--filled">お問い合わせ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating PAGE TOP — appears after scrolling past first viewport, hides over footer -->
+  <button type="button" class="page-top-float" id="pageTopFloat" aria-label="ページトップへ戻る">
+    <span class="page-top-float__icon" aria-hidden="true"></span>
+    <span class="page-top-float__label">PAGE<br />TOP</span>
+  </button>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="site-footer">
+    <!-- PAGE TOP (anchored to right viewport edge) -->
+    <a href="#site-header" class="page-top" aria-label="ページトップへ">
+      <img src="assets/img/logo-to-top.svg" alt="" class="page-top__icon" width="60" height="60" aria-hidden="true" />
+      <span class="page-top__label">PAGE<br />TOP</span>
+    </a>
+
+    <div class="site-footer__inner">
+      <!-- Top: Logo (swoosh + name) -->
+      <div class="site-footer__top">
+        <a href="#" class="site-footer__logo" aria-label="安井税理士事務所">
+          <img src="assets/img/logo.svg" alt="安井税理士事務所" class="site-footer__logo-img" width="264" height="48" />
+        </a>
+      </div>
+
+      <!-- Main row: Address + Map (left) | Sitemap (right) -->
+      <div class="site-footer__main">
+        <!-- Left: address + map -->
+        <div class="site-footer__address">
+          <p class="site-footer__postal">〒145-0072</p>
+          <p class="site-footer__street">
+            東京都大田区田園調布本町21-27<br />
+            Laguna桜坂102
+          </p>
+          <div class="site-footer__map">
+            <iframe
+              src="https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%A4%A7%E7%94%B0%E5%8C%BA%E7%94%B0%E5%9C%92%E8%AA%BF%E5%B8%83%E6%9C%AC%E7%94%BA21-27&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              title="事務所の地図"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- Right: sitemap -->
+        <nav class="site-footer__sitemap" aria-label="フッターナビゲーション">
+          <!-- TOP standalone row -->
+          <div class="sitemap__top-row">
+            <a href="#" class="sitemap__title">TOP</a>
+          </div>
+
+          <!-- 4 groups + standalone block under TOP -->
+          <div class="sitemap__cols">
+            <!-- サービス header -->
+            <div class="sitemap__col sitemap__col--service-h">
+              <a href="#service" class="sitemap__title">サービス</a>
+            </div>
+            <!-- サービス sub-items -->
+            <ul class="sitemap__col sitemap__sub sitemap__col--service-s">
+              <li><a href="#">月次給与・賞与計算</a></li>
+              <li><a href="#">起業・スタートアップ支援</a></li>
+              <li><a href="#">決算・記帳代行</a></li>
+              <li><a href="#">確定申告代行</a></li>
+              <li><a href="#">税務顧問</a></li>
+              <li><a href="#">節税対策</a></li>
+            </ul>
+            <!-- 企業情報 header -->
+            <div class="sitemap__col sitemap__col--company-h">
+              <a href="#company" class="sitemap__title">企業情報</a>
+            </div>
+            <!-- 企業情報 sub-items -->
+            <ul class="sitemap__col sitemap__sub sitemap__col--company-s">
+              <li><a href="#">私たちの強み</a></li>
+              <li><a href="#">代表あいさつ</a></li>
+              <li><a href="#">事務所概要</a></li>
+            </ul>
+            <!-- Standalone links (PC: under 企業情報 col 3; SP: full-width below) -->
+            <div class="sitemap__standalone">
+              <a href="#info" class="sitemap__title">お知らせ</a>
+              <a href="#cta" class="sitemap__title">お問い合わせ</a>
+              <a href="#" class="sitemap__title">プライバシーポリシー</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Copyright -->
+      <p class="site-footer__copy">©2025 Yasui Tax Co. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>

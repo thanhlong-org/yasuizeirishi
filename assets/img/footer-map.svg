@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
+  <!-- Base land -->
+  <rect width="600" height="300" fill="#e8eef2"/>
+  <!-- River (Tama river curve at top-left) -->
+  <path d="M 0 0 L 130 0 Q 110 60 90 110 Q 70 160 50 210 L 0 230 Z" fill="#b8d4e6"/>
+  <path d="M 0 250 Q 30 245 70 248 L 80 268 L 0 280 Z" fill="#b8d4e6"/>
+  <!-- Park / green area -->
+  <path d="M 380 40 Q 420 30 450 50 Q 460 80 440 100 Q 410 105 390 90 Q 380 65 380 40 Z" fill="#d6e5cd"/>
+  <!-- Major roads -->
+  <path d="M 0 130 L 600 110" stroke="#ffffff" stroke-width="10"/>
+  <path d="M 0 200 L 600 220" stroke="#ffffff" stroke-width="7"/>
+  <path d="M 170 0 L 200 300" stroke="#ffffff" stroke-width="8"/>
+  <path d="M 460 0 L 480 300" stroke="#ffffff" stroke-width="6"/>
+  <!-- Minor roads -->
+  <path d="M 0 70 L 600 60" stroke="#ffffff" stroke-width="3"/>
+  <path d="M 0 260 L 600 270" stroke="#ffffff" stroke-width="3"/>
+  <path d="M 290 0 L 310 300" stroke="#ffffff" stroke-width="3"/>
+  <path d="M 100 130 L 90 300" stroke="#ffffff" stroke-width="3"/>
+  <!-- Railway line -->
+  <path d="M 0 165 L 600 175" stroke="#9aa3ab" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- Pin shadow -->
+  <ellipse cx="305" cy="178" rx="8" ry="3" fill="rgba(0,0,0,0.2)"/>
+  <!-- Pin -->
+  <path d="M 300 145 C 290 145, 282 153, 282 163 C 282 173, 300 192, 300 192 C 300 192, 318 173, 318 163 C 318 153, 310 145, 300 145 Z" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="300" cy="163" r="5" fill="#ffffff"/>
+  <!-- Labels -->
+  <text x="35" y="22" font-family="sans-serif" font-size="11" fill="#5a6b78">多摩川</text>
+  <text x="395" y="58" font-family="sans-serif" font-size="10" fill="#5a7a4d">浅間神社</text>
+  <text x="210" y="105" font-family="sans-serif" font-size="11" fill="#3a4a55">田園調布</text>
+  <text x="320" y="170" font-family="sans-serif" font-size="11" font-weight="600" fill="#2a3a44">桜坂</text>
+  <text x="500" y="200" font-family="sans-serif" font-size="10" fill="#5a6b78">御嶽山</text>
+  <!-- Small POI dots -->
+  <circle cx="220" cy="240" r="4" fill="#4a90e2"/>
+  <circle cx="440" cy="160" r="4" fill="#f39c12"/>
+  <circle cx="380" cy="240" r="4" fill="#27ae60"/>
+</svg>
