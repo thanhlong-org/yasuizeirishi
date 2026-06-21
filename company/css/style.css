@@ -1,0 +1,622 @@
+/* company/css/style.css - Company page (kigyo-joho)
+   Page-specific styles. Shared header/footer/nav/CTA live in ../css/common.css.
+   Banner images in ../img ; company-link photos in ../../assets/img. */
+
+/* ===== Page banner (FV) - copied from features ===== */
+/* =============================================
+   Page banner (FV)  —  Figma node 4142:367
+   Frame: 1440 × 660. White diagonal-pattern bg + businessman photo
+   fading into the white on its left edge.
+   ============================================= */
+.page-banner {
+  position: relative;
+  width: 100%;
+  height: 660px; /* Figma spec */
+  /* White overlay on top fades the pattern — raise the 0.6 (0–1) to fade more */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  overflow: hidden;
+}
+
+/* Media layer (photo + scroll indicator) sits behind the text overlay */
+.page-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Businessman photo — Figma Mask group x371 y-46.78 w1201.73 h748.09 (of 1440×660).
+   Masked so it fades to transparent on the left, blending into the white bg
+   (Figma Rectangle 32: linear gradient transparent → opaque from ~2% to ~45%). */
+.page-banner__photo {
+  position: absolute;
+  top: 0;
+  right: 0;        /* anchored to the right edge → always fills to the edge on wide
+                      screens (like the homepage hero), so no white gap appears */
+  width: 74.24%;   /* left edge lands at the design x371 (25.76% of 1440) */
+  height: 100%;
+  background: url("../img/banner-pc.png") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+          mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+}
+
+/* SCROLL indicator — far-left edge (Figma line x42 y274 h153, text x37 y461) */
+.page-banner__scroll {
+  position: absolute;
+  /* 35px from the centered 1440 container's left edge (not the viewport) on wide screens */
+  left: max(35px, calc(50% - 685px));
+  top: 274px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px; /* line bottom y427 → SCROLL text y461 */
+  z-index: 3;
+  animation: pb-scroll-bob 2.4s ease-in-out infinite;
+}
+@keyframes pb-scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__scroll { animation: none; }
+}
+.page-banner__scroll-line {
+  width: 1px;
+  height: 153px; /* Figma spec */
+  background: #000000;
+}
+.page-banner__scroll-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  letter-spacing: 6.3px;
+  color: #000000;
+}
+
+/* Text overlay — centered 1440 container, 100px side padding (matches Figma x origins) */
+.page-banner__inner {
+  position: relative;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 100px;
+  z-index: 2;
+}
+
+/* "Features" — decorative en heading (Figma x100 y51, 100px, rgba(65,99,136,0.1)) */
+.page-banner__en {
+  position: absolute;
+  top: 51px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px; /* Figma spec */
+  line-height: 1;
+  color: rgba(65, 99, 136, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 私たちの強み — jp sub-title (Figma x100 y154, 36px, #868181, ls 15%) */
+.page-banner__jp {
+  position: absolute;
+  top: 138px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 36px; /* Figma spec */
+  letter-spacing: 0.15em;
+  color: #868181;
+}
+
+/* Lead copy (Figma x100 y359, 29px, line-height 180%, #000) */
+.page-banner__lead {
+  position: absolute;
+  top: 359px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 29px; /* Figma spec */
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* Breadcrumb — bottom of banner (Figma x0 y615, padding 11px 0 11px 100px) */
+.page-banner__breadcrumb {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 11px 0;
+  /* align with the 1440 container's left padding on wide screens */
+  padding-left: max(100px, calc(50% - 620px));
+  z-index: 3;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #323232;
+}
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.breadcrumb a {
+  color: #323232;
+}
+.breadcrumb__sep {
+  display: inline-flex;
+  width: 10px;  /* Figma arrow 10×10 */
+  height: 10px;
+  color: #323232;
+}
+.breadcrumb__current {
+  color: #323232;
+}
+
+/* =============================================
+   Banner — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .page-banner {
+    height: 560px;
+  }
+  .page-banner__inner {
+    padding: 0 48px;
+  }
+  .page-banner__en {
+    left: 48px;
+    font-size: 80px;
+  }
+  .page-banner__jp {
+    left: 48px;
+    font-size: 30px;
+  }
+  .page-banner__lead {
+    left: 48px;
+    font-size: 24px;
+  }
+  .page-banner__scroll {
+    left: 28px;
+    top: 150px;        /* fit inside the 560px banner, clear of the breadcrumb */
+  }
+  .page-banner__scroll-line {
+    height: 120px;
+  }
+  .page-banner__breadcrumb {
+    padding-left: 48px;
+  }
+}
+
+/* =============================================
+   Banner — SP (< 768px)  —  Figma node 4142:833 (390×560)
+   Flatten to a single column: title → breadcrumb → photo → lead
+   ============================================= */
+@media (max-width: 767px) {
+  .page-banner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-position: top center;
+  }
+  /* Let the overlay children flow into the column */
+  .page-banner__inner {
+    display: contents;
+  }
+
+  /* Title group (Figma h2 x19 y17) */
+  .page-banner__en {
+    position: static;
+    order: 1;
+    padding: 17px 0 0 19px;
+    font-size: 50px; /* Figma SP spec */
+    color: rgba(65, 99, 136, 0.2); /* Figma SP spec */
+  }
+  .page-banner__jp {
+    position: static;
+    margin-top: -15px;
+    order: 1;
+    padding: 4px 0 0 24px; /* x19 group + x5 = 24 */
+    font-size: 20px; /* Figma SP spec */
+  }
+
+  /* Breadcrumb between title and photo (per SP design) */
+  .page-banner__breadcrumb {
+    position: static;
+    order: 2;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+  }
+
+  /* Photo block (Figma Mask group x37 y166 w352.64 h271) */
+  .page-banner__media {
+    position: relative;
+    order: 3;
+    inset: auto;
+    margin: 12px 0 0 9.5%; /* 37 / 390 */
+    width: 90.4%;          /* 352.64 / 390 */
+    aspect-ratio: 352.64 / 271;
+  }
+  .page-banner__photo {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/banner-sp.png"); /* SP-specific crop */
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  /* SCROLL on the left of the photo (Figma x12 y210 inside FV) */
+  .page-banner__scroll {
+    left: -25px;
+    top: 44px; /* image top y166 → scroll y210 */
+    gap: 12px;
+  }
+  .page-banner__scroll-line {
+    height: 76px; /* Figma SP spec */
+  }
+  .page-banner__scroll-text {
+    font-size: 14px; /* Figma SP spec */
+    letter-spacing: 4.9px;
+  }
+
+  /* Lead copy — centered below photo (Figma x21 y478, 16px, center) */
+  .page-banner__lead {
+    position: static;
+    order: 4;
+    padding: 24px 20px 32px;
+    font-size: 16px; /* Figma SP spec */
+    text-align: center;
+  }
+}
+
+/* ===== Company blog (no heading on this page) - from homepage ===== */
+/* =============================================
+   Company (ä¼æ¥­æƒ…å ±) â€” redesigned (Figma node 4179:509)
+   Heading + intro text (left) and link rows (right) that expand to
+   reveal a photo on hover. Frame deco (slash corners + sparkles).
+   ============================================= */
+.company {
+  width: 100%;
+  padding: 100px;
+  background-color: #ffffff;
+}
+.company__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* Heading (top-left, bilingual) â€” char reveal handled in shared block */
+.company__heading {
+  position: relative;
+  min-height: 144px;
+  margin: 0 0 55px;
+}
+.company__heading-en {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px;
+  line-height: 1.25;
+  color: rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+.company__heading-jp {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  display: block;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1;
+  letter-spacing: 5.25px;
+  color: #868181;
+}
+
+/* Body: intro (left) + links (right) */
+.company__body {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+  padding: 44px 0;
+}
+.company__intro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 0;
+}
+.company__intro-p {
+  margin: 0;
+  /* Each paragraph fills the same 150px band as its matching link, centred to align with the link title */
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #323232;
+}
+
+/* Link list (right) */
+.company__list {
+  flex: 1.25;
+  display: flex;
+  flex-direction: column;
+  /* gap: 26px; */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.company-item {
+  position: relative;
+}
+.company-item__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 150px;           /* consistent height — no expand; image just fades in on hover */
+  overflow: hidden;
+  text-decoration: none;
+}
+
+/* Photo background â€” revealed on hover (with a white scrim for legibility) */
+.company-item__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.55s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.company-item--01 .company-item__media { background-image: url("../../assets/img/company-img01.jpg"); }
+.company-item--02 .company-item__media { background-image: url("../../assets/img/company-img02.jpg"); }
+.company-item--03 .company-item__media { background-image: url("../../assets/img/company-img03.jpg"); }
+.company-item__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.5);
+}
+.company-item:hover .company-item__media { opacity: 1; transform: scale(1); }
+
+/* Title + EN subtitle */
+.company-item__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-left: 0;
+  transition: padding-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.company-item:hover .company-item__text { padding-left: 40px; }
+.company-item__title {
+  font-family: var(--font-jp-serif);
+  font-weight: 700;
+  font-size: 24px;          /* Figma style_2d603e4c */
+  color: #868181;
+  transition: font-size 0.4s ease, color 0.4s ease;
+}
+.company-item:hover .company-item__title {
+  font-size: 30px;          /* Figma style_2b141508 */
+  color: #5B5B5B;
+}
+.company-item__en {
+  font-family: "Padyakke Expanded One", var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;          /* Figma style_d4c1fe93 */
+  color: #000000;
+}
+
+/* Circle arrow â€” faint blue â†’ solid blue on hover */
+.company-item__arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-50%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.company-item:hover .company-item__arrow { transform: translate(-16px, -50%); }
+.company-item__arrow img,
+.company-item__arrow svg { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* Separator line + blue accents */
+.company-item__line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: #767676;       /* Figma fill_b52d9af0 */
+  z-index: 1;
+}
+.company-item__line--top {
+  top: 0;
+  bottom: auto;
+}
+.company-item__accent {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 70px;
+  height: 4px;
+  background: #0340A4;       /* Figma fill_639c7493 */
+  z-index: 2;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.company-item:hover .company-item__accent { width: 100%; }
+.company-item__bar-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  background: #0340A4;
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.company-item:hover .company-item__bar-top { transform: scaleX(1); }
+/* Khi hover link dưới, thu accent đáy của link ngay trên về 0 để 2 vạch xanh không đè nhau ở ranh giới */
+.company-item:has(+ .company-item:hover) .company-item__accent { width: 0; }
+
+/* ----- Frame deco around the body (slash corners + lines + sparkles) ----- */
+.company__frame { position: absolute; pointer-events: none; z-index: 0; }
+.company__frame--tline { top: 0; left: 15px; right: 5px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.company__frame--bline { bottom: 0; left: 5px; right: 15px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.company__frame--tl,
+.company__frame--br { width: 54px; height: 54px; }
+.company__frame--tl { top: -27px; left: -12px; }
+.company__frame--br { bottom: -27px; right: -12px; }
+.company__frame--tl::before,
+.company__frame--br::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right,
+    transparent calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px));
+}
+.company__frame--star-tr,
+.company__frame--star-bl {
+  width: 16px;
+  height: 16px;
+  background-color: #B1B1B1;
+  -webkit-mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+}
+.company__frame--star-tr { top: -8px; right: -8px; }
+.company__frame--star-bl { bottom: -8px; left: -8px; }
+
+/* ===== Scroll-into-view animation for the frame (same as Case) =====
+   Don't fade the body block itself — only draw the frame in. */
+.company__body[data-reveal] { opacity: 1; transform: none; transition: none; }
+/* Slash corners rotate + scale in */
+.company__frame--tl,
+.company__frame--br {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    opacity   0.5s ease 0.15s;
+}
+.company__body[data-reveal]:not(.is-visible) .company__frame--tl,
+.company__body[data-reveal]:not(.is-visible) .company__frame--br {
+  transform: rotate(-180deg) scale(0.3);
+  opacity: 0;
+}
+/* Horizontal lines draw out (top: L→R, bottom: R→L) */
+.company__frame--tline {
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+.company__frame--bline {
+  transform-origin: right center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+.company__body[data-reveal]:not(.is-visible) .company__frame--tline,
+.company__body[data-reveal]:not(.is-visible) .company__frame--bline {
+  transform: scaleX(0);
+}
+/* Stars spin + pop */
+.company__frame--star-tr,
+.company__frame--star-bl {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s,
+    opacity   0.5s ease 0.6s;
+}
+.company__body[data-reveal]:not(.is-visible) .company__frame--star-tr,
+.company__body[data-reveal]:not(.is-visible) .company__frame--star-bl {
+  transform: rotate(-180deg) scale(0);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .company__body[data-reveal],
+  .company__frame--tl, .company__frame--br,
+  .company__frame--tline, .company__frame--bline,
+  .company__frame--star-tr, .company__frame--star-bl { transition: none; }
+  .company-item__link,
+  .company-item__media,
+  .company-item__text,
+  .company-item__title,
+  .company-item__arrow,
+  .company-item__accent,
+  .company-item__bar-top { transition: none; }
+}
+
+/* =============================================
+   Company â€” Tablet (â‰¤ 1024px): stack intro over links
+   ============================================= */
+@media (max-width: 1024px) {
+  .company { padding: 80px 48px; }
+  .company__heading { min-height: 0; margin-bottom: 32px; }
+  .company__heading-en { position: static; font-size: 70px; }
+  .company__heading-jp { position: static; margin-top: -24px; font-size: 28px; letter-spacing: 3.6px; }
+  .company__body { flex-direction: column; align-items: stretch; gap: 40px; padding: 36px 0; }
+  .company__intro { gap: 24px; }
+  /* Stacked layout: paragraphs flow normally, no 150px band */
+  .company__intro-p { height: auto; display: block; }
+}
+
+/* =============================================
+   Company â€” SP (< 768px)
+   ============================================= */
+@media (max-width: 767px) {
+  .company { padding: 40px 20px; }
+  .company__heading-en { font-size: 50px; }
+  .company__heading-jp { font-size: 18px; margin-top: -18px; letter-spacing: 2.7px; }
+  .company__body { gap: 28px; padding: 28px 0; }
+  .company__intro-p { font-size: 15px; }
+  .company-item__link { height: 120px; }
+  .company-item__title { font-size: 18px; }
+  .company-item:hover .company-item__title { font-size: 20px; }
+  .company-item__en { font-size: 14px; }
+  .company-item__arrow { width: 32px; height: 32px; right: 8px; }
+  .company-item:hover .company-item__text { padding-left: 20px; }
+  .company__frame--tl, .company__frame--br { display: none; }
+  .company__frame--bline {
+    left: 0;
+    right: 0;
+  }
+}

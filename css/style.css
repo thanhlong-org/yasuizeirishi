@@ -1,5 +1,5 @@
 /* =============================================
-   Infomation (ãŠçŸ¥ã‚‰ã›)
+   Infomation (Ã£ÂÅ Ã§Å¸Â¥Ã£â€šâ€°Ã£Ââ€º)
    ============================================= */
 .info {
   width: 100%;
@@ -61,7 +61,7 @@
   display: none; /* SP only */
 }
 
-/* Decorative logo (bottom-left, faint â€” opacity baked into SVG) */
+/* Decorative logo (bottom-left, faint Ã¢â‚¬â€ opacity baked into SVG) */
 .info__logo-deco {
   position: absolute;
   top: 337.97px;
@@ -72,7 +72,7 @@
   transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   object-fit: contain;
 }
-/* Hover: full 360Â° spin */
+/* Hover: full 360Ã‚Â° spin */
 .info__logo-deco:hover {
   transform: rotate(360deg);
 }
@@ -168,7 +168,7 @@
 }
 
 /* =============================================
-   Infomation â€” Tablet (â‰¤ 1200px)
+   Infomation Ã¢â‚¬â€ Tablet (Ã¢â€°Â¤ 1200px)
    ============================================= */
 @media (max-width: 1200px) {
   .info {
@@ -236,7 +236,7 @@
 }
 
 /* =============================================
-   Infomation â€” SP (< 768px)
+   Infomation Ã¢â‚¬â€ SP (< 768px)
    ============================================= */
 @media (max-width: 767px) {
   .info {
@@ -305,33 +305,25 @@
 }
 
 /* =============================================
-   Company (ä¼æ¥­æƒ…å ±)
+   Company (ä¼æ¥­æƒ…å ±) â€” redesigned (Figma node 4179:509)
+   Heading + intro text (left) and link rows (right) that expand to
+   reveal a photo on hover. Frame deco (slash corners + sparkles).
    ============================================= */
 .company {
   width: 100%;
   padding: 100px;
   background-color: #ffffff;
-  /* background-image: url("../assets/img/company-bg-pattern.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
 }
-
 .company__inner {
   max-width: 1240px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 60px;
 }
 
-/* h2 group (left side) */
+/* Heading (top-left, bilingual) â€” char reveal handled in shared block */
 .company__heading {
   position: relative;
-  flex-shrink: 0;
-  width: 469px;
-  min-height: 143.74px;
-  margin: 0;
+  min-height: 144px;
+  margin: 0 0 55px;
 }
 .company__heading-en {
   position: absolute;
@@ -342,12 +334,12 @@
   font-weight: 500;
   font-size: 100px;
   line-height: 1.25;
-  color: rgba(0, 0, 0, 0.1); /* fill_Y7MEAN */
+  color: rgba(0, 0, 0, 0.1);
   white-space: nowrap;
 }
 .company__heading-jp {
   position: absolute;
-  top: 72.35px;
+  top: 72px;
   left: 0;
   display: block;
   font-family: var(--font-jp-serif);
@@ -355,386 +347,297 @@
   font-size: 35px;
   line-height: 1;
   letter-spacing: 5.25px;
-  color: #868181; /* fill_JUHZIY */
+  color: #868181;
 }
 
-/* Items list (right column) */
-.company__list {
-  position: relative; /* positioning context for outer corner slashes */
+/* Body: intro (left) + links (right) */
+.company__body {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 64px;
+  padding: 44px 0;
+}
+.company__intro {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0;
+  padding-top: 0;
+}
+.company__intro-p {
+  margin: 0;
+  /* Each paragraph fills the same 150px band as its matching link, centred to align with the link title */
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #323232;
+}
+
+/* Link list (right) */
+.company__list {
+  flex: 1.25;
+  display: flex;
+  flex-direction: column;
+  /* gap: 26px; */
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .company-item {
-  position: relative; /* for inner absolute spans (accents, dividers, arrow) */
-  width: 100%;
-  cursor: pointer;
+  position: relative;
 }
-/* Arrow shifts inward on hover (banner: 16 â†’ 32; text items: translateX -16px) */
-.company-item__arrow {
-  transition:
-    right     0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.company-item--banner:hover .company-item__arrow {
-  right: 32px;
-}
-.company-item:not(.company-item--banner):hover .company-item__arrow {
-  transform: translateX(-16px);
-}
-/* Banner item: image zooms + overlay fades on hover */
-.company-item--banner:hover .company-item__link::before {
-  transform: scale(1.08);
-}
-.company-item--banner:hover .company-item__link::after {
-  opacity: 0.35;
-}
-@media (prefers-reduced-motion: reduce) {
-  .company-item__arrow,
-  .company-item__accent,
-  .company-item__banner-accent-top,
-  .company-item__banner-accent-bottom,
-  .company-item--banner .company-item__link::before,
-  .company-item--banner .company-item__link::after {
-    transition: none;
-  }
-}
-/* Item 1: ç§ãŸã¡ã®å¼·ã¿ with banner image */
-.company__list .company-item--banner {
-  height: 150px;
-  margin-bottom: 48px;
-}
-.company-item--banner .company-item__link {
+.company-item__link {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
+  height: 150px;           /* consistent height — no expand; image just fades in on hover */
   overflow: hidden;
-  padding: 0 40px;
+  text-decoration: none;
 }
-/* Banner image â€” separate layer so we can zoom it on hover */
-.company-item--banner .company-item__link::before {
-  content: "";
+
+/* Photo background â€” revealed on hover (with a white scrim for legibility) */
+.company-item__media {
   position: absolute;
   inset: 0;
-  background-image: url("../assets/img/company-banner.png");
+  z-index: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.55s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* White overlay â€” fades on hover so image reads through clearer */
-.company-item--banner .company-item__link::after {
+.company-item--01 .company-item__media { background-image: url("../assets/img/company-img01.jpg"); }
+.company-item--02 .company-item__media { background-image: url("../assets/img/company-img02.jpg"); }
+.company-item--03 .company-item__media { background-image: url("../assets/img/company-img03.jpg"); }
+.company-item__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.75);
-  transition: opacity 0.4s ease;
-  z-index: 1;
+  background: rgba(255, 255, 255, 0.5);
 }
-.company-item--banner .company-item__label {
+.company-item:hover .company-item__media { opacity: 1; transform: scale(1); }
+
+/* Title + EN subtitle */
+.company-item__text {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-left: 0;
+  transition: padding-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.company-item--banner .company-item__label {
+.company-item:hover .company-item__text { padding-left: 40px; }
+.company-item__title {
   font-family: var(--font-jp-serif);
   font-weight: 700;
-  font-size: 30px; /* style_XMP51H */
-  color: #5B5B5B; /* fill_O9L7QP */
-  margin: 0;
+  font-size: 24px;          /* Figma style_2d603e4c */
+  color: #868181;
+  transition: font-size 0.4s ease, color 0.4s ease;
 }
-.company-item--banner .company-item__arrow {
-  position: absolute;
-  top: 50%;
-  right: 16px;             /* default closer to edge â€” moves inward on hover (16 â†’ 32) */
-  z-index: 2;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+.company-item:hover .company-item__title {
+  font-size: 30px;          /* Figma style_2b141508 */
   color: #5B5B5B;
 }
-.company-item--banner .company-item__arrow svg,
-.company-item--banner .company-item__arrow img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+.company-item__en {
+  font-family: "Padyakke Expanded One", var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;          /* Figma style_d4c1fe93 */
+  color: #000000;
 }
 
-/* Item 2: ä»£è¡¨ã‚ã„ã•ã¤ */
-.company__list .company-item:nth-of-type(2) {
-  margin-bottom: 94px;
-}
-
-/* Item 3: äº‹å‹™æ‰€æ¦‚è¦ â€” no margin-bottom (last item) */
-
-/* Common text-only item style (items 2 & 3) */
-.company-item:not(.company-item--banner) .company-item__link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 16px 16px 0;
-  font-family: var(--font-jp-serif);
-  font-weight: 700;
-  font-size: 24px; /* style_HAOZD1 */
-  color: #868181; /* fill_JUHZIY */
-}
-.company-item:not(.company-item--banner) .company-item__arrow {
+/* Circle arrow â€” faint blue â†’ solid blue on hover */
+.company-item__arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  z-index: 1;
   width: 40px;
   height: 40px;
-  color: #868181;
-  flex-shrink: 0;
+  transform: translateY(-50%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.company-item:not(.company-item--banner) .company-item__arrow svg,
-.company-item:not(.company-item--banner) .company-item__arrow img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-/* Divider below each item (Line 1 / Line 3) */
-.company-item__divider {
+.company-item:hover .company-item__arrow { transform: translate(-16px, -50%); }
+.company-item__arrow img,
+.company-item__arrow svg { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* Separator line + blue accents */
+.company-item__line {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   height: 1px;
-  background: rgba(76, 72, 72, 0.7); /* fill_GFB5R9 */
+  background: #767676;       /* Figma fill_b52d9af0 */
+  z-index: 1;
 }
-
-.company-item__divider--top {
-  bottom: unset;
+.company-item__line--top {
   top: 0;
+  bottom: auto;
 }
-/* Blue accent line at bottom-left of divider */
 .company-item__accent {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 70px;
   height: 4px;
-  background: #0340A4; /* fill_OBYFMG */
+  background: #0340A4;       /* Figma fill_639c7493 */
+  z-index: 2;
   transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
-/* Hover: accent extends to full block width (matches banner top/bottom accent) */
-.company-item:hover .company-item__accent {
-  width: 100%;
-}
-
-/* Outer corner slashes (top-left + bottom-right of company list) */
-.company__corner {
+.company-item:hover .company-item__accent { width: 100%; }
+.company-item__bar-top {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  pointer-events: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  background: #0340A4;
+  z-index: 2;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.company-item:hover .company-item__bar-top { transform: scaleX(1); }
+/* Khi hover link dưới, thu accent đáy của link ngay trên về 0 để 2 vạch xanh không đè nhau ở ranh giới */
+.company-item:has(+ .company-item:hover) .company-item__accent { width: 0; }
+
+/* ----- Frame deco around the body (slash corners + lines + sparkles) ----- */
+.company__frame { position: absolute; pointer-events: none; z-index: 0; }
+.company__frame--tline { top: 0; left: 15px; right: 5px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.company__frame--bline { bottom: 0; left: 5px; right: 15px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.company__frame--tl,
+.company__frame--br { width: 54px; height: 54px; }
+.company__frame--tl { top: -27px; left: -12px; }
+.company__frame--br { bottom: -27px; right: -12px; }
+.company__frame--tl::before,
+.company__frame--br::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: linear-gradient(to bottom right,
     transparent calc(50% - 0.5px),
     rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
     rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
-    transparent calc(50% + 0.5px)
-  );
+    transparent calc(50% + 0.5px));
 }
-.company__corner--tl {
-  top: -26px;
-  left: -26px;
+.company__frame--star-tr,
+.company__frame--star-bl {
+  width: 16px;
+  height: 16px;
+  background-color: #B1B1B1;
+  -webkit-mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
 }
-.company__corner--br {
-  bottom: -25px;
-  right: -25px;
-}
-/* Disable generic data-reveal slide on company section â€” per-corner reveal instead */
-.company[data-reveal] {
-  opacity: 1; transform: none; transition: none;
-}
-/* Corners rotate in like case slashes when section enters viewport */
-.company__corner {
+.company__frame--star-tr { top: -8px; right: -8px; }
+.company__frame--star-bl { bottom: -8px; left: -8px; }
+
+/* ===== Scroll-into-view animation for the frame (same as Case) =====
+   Don't fade the body block itself — only draw the frame in. */
+.company__body[data-reveal] { opacity: 1; transform: none; transition: none; }
+/* Slash corners rotate + scale in */
+.company__frame--tl,
+.company__frame--br {
   transition:
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
-    opacity   0.5s ease 0.25s;
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    opacity   0.5s ease 0.15s;
 }
-.company[data-reveal]:not(.is-visible) .company__corner {
+.company__body[data-reveal]:not(.is-visible) .company__frame--tl,
+.company__body[data-reveal]:not(.is-visible) .company__frame--br {
   transform: rotate(-180deg) scale(0.3);
   opacity: 0;
 }
+/* Horizontal lines draw out (top: L→R, bottom: R→L) */
+.company__frame--tline {
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+.company__frame--bline {
+  transform-origin: right center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+.company__body[data-reveal]:not(.is-visible) .company__frame--tline,
+.company__body[data-reveal]:not(.is-visible) .company__frame--bline {
+  transform: scaleX(0);
+}
+/* Stars spin + pop */
+.company__frame--star-tr,
+.company__frame--star-bl {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s,
+    opacity   0.5s ease 0.6s;
+}
+.company__body[data-reveal]:not(.is-visible) .company__frame--star-tr,
+.company__body[data-reveal]:not(.is-visible) .company__frame--star-bl {
+  transform: rotate(-180deg) scale(0);
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .company__corner { transition: none; }
-}
-
-/* Decorative top + bottom slash+line elements */
-.company__deco {
-  position: absolute;
-  pointer-events: none;
-}
-.company__deco--top {
-  top: 18px; /* line at bottom of deco sits right at banner top (71.97) */
-  left: 540px;
-  width: 700px;
-  height: 54px;
-  background:
-    /* horizontal line at BOTTOM of slash, AFTER slash, going right */
-    linear-gradient(to right, rgba(76, 72, 72, 0.7), rgba(76, 72, 72, 0.7)) no-repeat 54px calc(100% - 1px) / calc(100% - 54px) 1px,
-    /* diagonal slash `\` at top-left */
-    linear-gradient(to bottom right,
-      transparent calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
-      transparent calc(50% + 0.5px)
-    ) no-repeat 0 0 / 54px 54px;
-}
-.company__deco--bottom {
-  top: 467px; /* sits right under item 3 divider (item 3 ends @465) */
-  left: 540px;
-  width: 700px;
-  height: 54px;
-  background:
-    /* diagonal slash `\` at bottom-right only (item 3's own divider serves as the horizontal line) */
-    linear-gradient(to bottom right,
-      transparent calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
-      transparent calc(50% + 0.5px)
-    ) no-repeat 100% 100% / 54px 54px;
-}
-
-/* Decoration directly below the banner image (between item 1 and item 2) */
-.company__deco--banner-bottom {
-  top: 222px; /* line at top sits right at banner bottom (banner ends @221.97) */
-  left: 540px;
-  width: 700px;
-  height: 54px;
-  background:
-    /* horizontal line at TOP, stops before the slash */
-    linear-gradient(to right, rgba(76, 72, 72, 0.7), rgba(76, 72, 72, 0.7)) no-repeat 0 0 / calc(100% - 54px) 1px,
-    /* diagonal slash `\` at bottom-right */
-    linear-gradient(to bottom right,
-      transparent calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
-      rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
-      transparent calc(50% + 0.5px)
-    ) no-repeat 100% 100% / 54px 54px;
-}
-
-/* Blue accent lines around banner item (top-left + bottom-left) */
-.company-item__banner-accent-top,
-.company-item__banner-accent-bottom {
-  position: absolute;
-  left: 0;
-  width: 70px;
-  height: 4px;
-  background: #0340A4;
-  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.company-item__banner-accent-top    { top: -2px; }
-.company-item__banner-accent-bottom { bottom: -2px; }
-/* Hover: both top + bottom accents extend to full block width */
-.company-item--banner:hover .company-item__banner-accent-top,
-.company-item--banner:hover .company-item__banner-accent-bottom {
-  width: 100%;
+  .company__body[data-reveal],
+  .company__frame--tl, .company__frame--br,
+  .company__frame--tline, .company__frame--bline,
+  .company__frame--star-tr, .company__frame--star-bl { transition: none; }
+  .company-item__link,
+  .company-item__media,
+  .company-item__text,
+  .company-item__title,
+  .company-item__arrow,
+  .company-item__accent,
+  .company-item__bar-top { transition: none; }
 }
 
 /* =============================================
-   Company â€” Tablet (â‰¤ 1200px)
+   Company â€” Tablet (â‰¤ 1024px): stack intro over links
    ============================================= */
-@media (max-width: 1200px) {
-  .company {
-    padding: 80px 48px;
-  }
-  .company__inner {
-    flex-direction: column;
-    gap: 48px;
-  }
-  .company__heading {
-    width: auto;
-  }
-  .company__heading-en {
-    position: static;
-    font-size: 70px;
-  }
-  .company__heading-jp {
-    top: 50px;
-    font-size: 24px;
-    letter-spacing: 3.6px;
-  }
-  .company__list {
-    width: 100%;
-    max-width: 660px;
-    margin: 0 auto;
-  }
-  .company__list .company-item--banner {
-    margin-bottom: 24px;
-  }
-  .company__list .company-item:nth-of-type(2) {
-    margin-bottom: 24px;
-  }
-  /* Hide outer corner slashes on tablet/SP */
-  .company__corner {
-    display: none;
-  }
+@media (max-width: 1024px) {
+  .company { padding: 80px 48px; }
+  .company__heading { min-height: 0; margin-bottom: 32px; }
+  .company__heading-en { position: static; font-size: 70px; }
+  .company__heading-jp { position: static; margin-top: -24px; font-size: 28px; letter-spacing: 3.6px; }
+  .company__body { flex-direction: column; align-items: stretch; gap: 40px; padding: 36px 0; }
+  .company__intro { gap: 24px; }
+  /* Stacked layout: paragraphs flow normally, no 150px band */
+  .company__intro-p { height: auto; display: block; }
 }
 
 /* =============================================
    Company â€” SP (< 768px)
    ============================================= */
 @media (max-width: 767px) {
-  .company {
-    padding: 40px 20px;
-  }
-  .company__inner {
-    gap: 24px;
-  }
-  .company__heading {
-    height: 67px;
-  }
-  .company__heading-en {
-    font-size: 50px;
-  }
-  .company__heading-jp {
-    top: 41px;
-    font-size: 18px;
-    letter-spacing: 2.7px;
-  }
-
-  .company__list .company-item--banner {
-    width: 100%;
-    height: 110px;
-  }
-  .company-item--banner .company-item__label {
-    font-size: 18px;
-  }
-  .company-item--banner .company-item__link {
-    padding: 0 24px;
-  }
-  .company-item--banner .company-item__arrow {
-    width: 32px;
-    height: 32px;
-    right: 16px;
-  }
-
-  .company-item:not(.company-item--banner) .company-item__link {
-    font-size: 16px;
-    padding-bottom: 12px;
-  }
-  .company-item:not(.company-item--banner) .company-item__arrow {
-    width: 32px;
-    height: 32px;
+  .company { padding: 40px 20px; }
+  .company__heading-en { font-size: 50px; }
+  .company__heading-jp { font-size: 18px; margin-top: -18px; letter-spacing: 2.7px; }
+  .company__body { gap: 28px; padding: 28px 0; }
+  .company__intro-p { font-size: 15px; }
+  .company-item__link { height: 120px; }
+  .company-item__title { font-size: 18px; }
+  .company-item:hover .company-item__title { font-size: 20px; }
+  .company-item__en { font-size: 14px; }
+  .company-item__arrow { width: 32px; height: 32px; right: 8px; }
+  .company-item:hover .company-item__text { padding-left: 20px; }
+  .company__frame--tl, .company__frame--br { display: none; }
+  .company__frame--tline,
+  .company__frame--bline {
+    left: 0;
+    right: 0;
   }
 }
 
 /* =============================================
-   Service (ã‚µãƒ¼ãƒ“ã‚¹)
+   Service (Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹)
    ============================================= */
 /* Shared gradient wrapper for Service + Case */
 .service-case-bg {
   width: 100%;
-  /* Figma ã‚µãƒ¼ãƒ“ã‚¹ã‚»ã‚¯ã‚·ãƒ§ãƒ³ fill: gradient spanning both inner blocks */
+  /* Figma Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹Ã£â€šÂ»Ã£â€šÂ¯Ã£â€šÂ·Ã£Æ’Â§Ã£Æ’Â³ fill: gradient spanning both inner blocks */
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 0%,
@@ -745,7 +648,7 @@
 
 .service {
   width: 100%;
-  /* top + sides padding only â€” bottom gap comes from .case padding-top */
+  /* top + sides padding only Ã¢â‚¬â€ bottom gap comes from .case padding-top */
   padding: 100px 100px 0;
   background: transparent;
 }
@@ -757,7 +660,7 @@
   height: 1044.38px; /* Figma spec */
 }
 
-/* h2: "Service" decorative big + "ã‚µãƒ¼ãƒ“ã‚¹" smaller */
+/* h2: "Service" decorative big + "Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹" smaller */
 .service__heading {
   position: absolute;
   top: 0;
@@ -791,7 +694,7 @@
   color: #868181; /* fill_JUHZIY */
 }
 
-/* Top-right button "äº‹ä¾‹ä¸€è¦§ã‚’è¦‹ã‚‹" â€” increased specificity to beat .detail-btn defined later */
+/* Top-right button "Ã¤Âºâ€¹Ã¤Â¾â€¹Ã¤Â¸â‚¬Ã¨Â¦Â§Ã£â€šâ€™Ã¨Â¦â€¹Ã£â€šâ€¹" Ã¢â‚¬â€ increased specificity to beat .detail-btn defined later */
 .detail-btn.service__btn {
   position: absolute;
   top: 54px; /* Figma spec */
@@ -843,7 +746,7 @@
   position: absolute;
   pointer-events: none;
 }
-/* Disable generic data-reveal slide on the section â€” we use per-deco reveal instead */
+/* Disable generic data-reveal slide on the section Ã¢â‚¬â€ we use per-deco reveal instead */
 .service[data-reveal] {
   opacity: 1; transform: none; transition: none;
 }
@@ -877,7 +780,7 @@
     transition: none;
   }
 }
-/* Top horizontal line: list-relative (29, 40.66) â†’ inner (29, 282) */
+/* Top horizontal line: list-relative (29, 40.66) Ã¢â€ â€™ inner (29, 282) */
 .service__deco--top-line {
   top: 282px;
   left: 29px;
@@ -885,7 +788,7 @@
   height: 1px;
   background: rgba(76, 72, 72, 0.7);
 }
-/* Bottom horizontal line: list-relative (0.24, 767.66) â†’ inner (0.24, 1009) */
+/* Bottom horizontal line: list-relative (0.24, 767.66) Ã¢â€ â€™ inner (0.24, 1009) */
 .service__deco--bottom-line {
   top: 1009px;
   left: 0.24px;
@@ -935,7 +838,7 @@
 /* ===== Service items list (right column) ===== */
 .service__list {
   position: absolute;
-  top: 241.34px; /* Figma spec: ã‚µãƒ¼ãƒ“ã‚¹ä¸€è¦§ group y */
+  top: 241.34px; /* Figma spec: Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹Ã¤Â¸â‚¬Ã¨Â¦Â§ group y */
   left: 0;
   width: 1240px;
   height: 803.04px;
@@ -1065,7 +968,7 @@
 }
 
 /* =============================================
-   Service â€” Tablet (â‰¤ 1200px)
+   Service Ã¢â‚¬â€ Tablet (Ã¢â€°Â¤ 1200px)
    ============================================= */
 @media (max-width: 1200px) {
   .service {
@@ -1118,7 +1021,7 @@
 }
 
 /* =============================================
-   Service â€” SP (< 768px)
+   Service Ã¢â‚¬â€ SP (< 768px)
    ============================================= */
 @media (max-width: 767px) {
   .service {
@@ -1191,7 +1094,7 @@
 }
 
 /* =============================================
-   Case (äº‹ä¾‹ç´¹ä»‹)
+   Case (Ã¤Âºâ€¹Ã¤Â¾â€¹Ã§Â´Â¹Ã¤Â»â€¹)
    ============================================= */
 .case {
   width: 100%;
@@ -1205,7 +1108,7 @@
   margin: 0 auto;
 }
 
-/* Case heading â€” same bilingual pattern as Service */
+/* Case heading Ã¢â‚¬â€ same bilingual pattern as Service */
 .case__heading {
   position: relative;
   width: 960px;
@@ -1237,13 +1140,13 @@
   color: #ffffff; /* fill_MKQD8L */
 }
 
-/* Top-right button "äº‹ä¾‹ä¸€è¦§ã‚’è¦‹ã‚‹" */
+/* Top-right button "Ã¤Âºâ€¹Ã¤Â¾â€¹Ã¤Â¸â‚¬Ã¨Â¦Â§Ã£â€šâ€™Ã¨Â¦â€¹Ã£â€šâ€¹" */
 .detail-btn.case__btn {
   position: absolute;
   top: 52px; /* Figma spec */
-  right: 0; /* x=967 in 1240 â†’ right edge: 1240-967-272 = 1 â‰ˆ 0 */
+  right: 0; /* x=967 in 1240 Ã¢â€ â€™ right edge: 1240-967-272 = 1 Ã¢â€°Ë† 0 */
 }
-/* White text variant â€” case section is dark, button needs white text/borders */
+/* White text variant Ã¢â‚¬â€ case section is dark, button needs white text/borders */
 .detail-btn.case__btn,
 .detail-btn.case-item__btn--light,
 .detail-btn.case__btn-sp {
@@ -1255,7 +1158,7 @@
   background: rgba(255, 255, 255, 0.7); /* fill_BJMUJA */
 }
 
-/* SP-only bottom button â€” green accent per Figma (fill_8Q82Q4 = #2D73E7 in Figma but visually green-cyan) */
+/* SP-only bottom button Ã¢â‚¬â€ green accent per Figma (fill_8Q82Q4 = #2D73E7 in Figma but visually green-cyan) */
 .detail-btn.case__btn-sp {
   display: none; /* shown only on SP */
 }
@@ -1401,7 +1304,7 @@
   }
 }
 
-/* Case image â€” left side */
+/* Case image Ã¢â‚¬â€ left side */
 .case-item__image {
   position: absolute;
   top: 85.56px; /* Figma layout_WGWDQ8 */
@@ -1412,7 +1315,7 @@
   background: url("../assets/img/service-consultant.png") center/cover no-repeat;
 }
 
-/* Case title â€” right side, top */
+/* Case title Ã¢â‚¬â€ right side, top */
 .case-item__title {
   position: absolute;
   top: 98.14px; /* Figma layout_MPQHDW */
@@ -1473,13 +1376,13 @@
   text-align: center;
 }
 
-/* "è©³ã—ãè¦‹ã‚‹" button â€” centered via parent .case-item__footer */
+/* "Ã¨Â©Â³Ã£Ââ€”Ã£ÂÂÃ¨Â¦â€¹Ã£â€šâ€¹" button Ã¢â‚¬â€ centered via parent .case-item__footer */
 .detail-btn.case-item__btn {
   position: relative;
 }
 
 /* =============================================
-   Case â€” Tablet (â‰¤ 1200px)
+   Case Ã¢â‚¬â€ Tablet (Ã¢â€°Â¤ 1200px)
    ============================================= */
 @media (max-width: 1200px) {
   .case {
@@ -1591,7 +1494,7 @@
 }
 
 /* =============================================
-   Case â€” SP (< 768px)
+   Case Ã¢â‚¬â€ SP (< 768px)
    ============================================= */
 @media (max-width: 767px) {
   .case {
@@ -1651,7 +1554,7 @@
     margin-bottom: 24px;
   }
   .case-item__tag {
-    /* Explicit dimensions (Figma SP spec: 97.31 Ã— 26) */
+    /* Explicit dimensions (Figma SP spec: 97.31 Ãƒâ€” 26) */
     width: 97.31px;
     height: 26px;
     margin-bottom: 16px;
@@ -1688,7 +1591,7 @@
     height: 30px;
   }
 
-  /* SP decoration sizes â€” smaller, repositioned closer to corners */
+  /* SP decoration sizes Ã¢â‚¬â€ smaller, repositioned closer to corners */
   .case-deco--tl,
   .case-deco--br {
     width: 40px;
@@ -1735,7 +1638,7 @@
 }
 
 /* =============================================
-   Features (ç§ãŸã¡ã®å¼·ã¿ - 3ã¤ã®ãŠç´„æŸ)
+   Features (Ã§Â§ÂÃ£ÂÅ¸Ã£ÂÂ¡Ã£ÂÂ®Ã¥Â¼Â·Ã£ÂÂ¿ - 3Ã£ÂÂ¤Ã£ÂÂ®Ã£ÂÅ Ã§Â´â€žÃ¦ÂÅ¸)
    ============================================= */
 .features {
   width: 100%;
@@ -1843,7 +1746,7 @@
   top: 397px; /* approx after first paragraph */
 }
 
-/* Detail button (272 Ã— 60) â€” 4 separate edge lines with open corners + accent line */
+/* Detail button (272 Ãƒâ€” 60) Ã¢â‚¬â€ 4 separate edge lines with open corners + accent line */
 .detail-btn {
   position: relative;
   display: inline-flex;
@@ -1917,7 +1820,7 @@
   left: 0;
 }
 
-/* SP-only conditional <br> for line break before "ã‚’å–ã‚Šæ‰•ã†ãŸã‚ã«ã€" */
+/* SP-only conditional <br> for line break before "Ã£â€šâ€™Ã¥Ââ€“Ã£â€šÅ Ã¦â€°â€¢Ã£Ââ€ Ã£ÂÅ¸Ã£â€šÂÃ£ÂÂ«Ã£â‚¬Â" */
 .features__br--sp {
   display: none;
 }
@@ -1929,6 +1832,7 @@
   left: 522px;
   width: 720px;
   height: 670px;
+  margin: 0 auto;
 }
 
 .venn-circle {
@@ -1940,7 +1844,7 @@
   overflow: hidden; /* clip shine overlay to circle */
 }
 
-/* Watermark logo behind text â€” positioned in each circle's UNIQUE (non-overlap) zone */
+/* Watermark logo behind text Ã¢â‚¬â€ positioned in each circle's UNIQUE (non-overlap) zone */
 .venn-circle::after {
   content: "";
   position: absolute;
@@ -1972,7 +1876,7 @@
   transform: translateY(-50%);
 }
 
-/* Glossy "shine" overlay using promise-stripe.png â€” single image drift */
+/* Glossy "shine" overlay using promise-stripe.png Ã¢â‚¬â€ single image drift */
 .venn-circle__shine {
   position: absolute;
   z-index: 0;          /* sits behind logo (::after z1) and text (z2) */
@@ -1984,7 +1888,7 @@
   background-repeat: no-repeat;
   mix-blend-mode: overlay;
   opacity: 0.4;
-  /* Long, slow alternate â€” back-and-forth so gentle it reads as continuous drift, no jarring snap */
+  /* Long, slow alternate Ã¢â‚¬â€ back-and-forth so gentle it reads as continuous drift, no jarring snap */
   animation: venn-shine 24s ease-in-out infinite alternate;
 }
 .venn-circle--02 .venn-circle__shine { animation-duration: 28s; animation-delay: -7s; }
@@ -2096,7 +2000,7 @@
 }
 
 /* =============================================
-   Features â€” Tablet (â‰¤ 1200px)
+   Features Ã¢â‚¬â€ Tablet (Ã¢â€°Â¤ 1200px)
    ============================================= */
 @media (max-width: 1200px) {
   .features {
@@ -2127,7 +2031,7 @@
 }
 
 /* =============================================
-   Features â€” SP (< 768px)
+   Features Ã¢â‚¬â€ SP (< 768px)
    ============================================= */
 @media (max-width: 767px) {
   .features {
@@ -2263,7 +2167,7 @@
     margin-top: 20px;
   }
 
-  /* SP button: 272 Ã— 50 */
+  /* SP button: 272 Ãƒâ€” 50 */
   .features__btn {
     position: relative; /* keep relative so edge lines position correctly */
     top: auto;
@@ -2291,7 +2195,7 @@
   overflow: hidden;
 }
 
-/* Background image â€” right 75%, leaves 25% white on left */
+/* Background image Ã¢â‚¬â€ right 75%, leaves 25% white on left */
 .hero__bg {
   position: absolute;
   top: 0;
@@ -2317,7 +2221,7 @@
   0%   { filter: blur(15px); }
   100% { filter: blur(0); }
 }
-/* Subtle continuous breathing after entrance â€” soft floating feel */
+/* Subtle continuous breathing after entrance Ã¢â‚¬â€ soft floating feel */
 @keyframes hero-float {
   0%, 100% { transform: scale(1); }
   50%      { transform: scale(1.04); }
@@ -2331,10 +2235,10 @@
   }
 }
 
-/* SCROLL indicator on far-left edge â€” aligned to title/tagline via Figma absolute coords */
+/* SCROLL indicator on far-left edge Ã¢â‚¬â€ aligned to title/tagline via Figma absolute coords */
 .hero__scroll {
   position: absolute;
-  left: 35px; /* Figma spec: line x=42, text x=37 â€” use leftmost edge */
+  left: 35px; /* Figma spec: line x=42, text x=37 Ã¢â‚¬â€ use leftmost edge */
   top: 274px; /* Figma spec: line top, aligned with title line 1 (y=272) */
   display: flex;
   flex-direction: column;
@@ -2343,7 +2247,7 @@
   z-index: 3;
   animation: hero-scroll-bob 2.4s ease-in-out infinite;
 }
-/* Gentle up-down bobbing â€” hint that user should scroll */
+/* Gentle up-down bobbing Ã¢â‚¬â€ hint that user should scroll */
 @keyframes hero-scroll-bob {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(10px); }
@@ -2425,7 +2329,7 @@
   color: var(--color-text);
 }
 
-/* ----- Hero tablet (â‰¤ 1200px) ----- */
+/* ----- Hero tablet (Ã¢â€°Â¤ 1200px) ----- */
 @media (max-width: 1200px) {
   .hero {
     height: 560px;
@@ -2484,7 +2388,7 @@
     text-align: center; /* Figma spec: SP slogan center-aligned */
   }
   .hero__title-line--indent {
-    padding-left: 0; /* center align â†’ no indent needed */
+    padding-left: 0; /* center align Ã¢â€ â€™ no indent needed */
   }
   .hero__bg {
     position: relative;

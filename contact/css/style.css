@@ -1,0 +1,468 @@
+/* contact/css/style.css - Contact page (otoiawase)
+   Shared header/footer via ../css/common.css. Page-specific: banner + contact form.
+   Banner/icons in ../img. */
+
+/* ===== Page banner (FV) - same as other sub-pages ===== */
+/* =============================================
+   Page banner (FV)  —  Figma node 4142:367
+   Frame: 1440 × 660. White diagonal-pattern bg + businessman photo
+   fading into the white on its left edge.
+   ============================================= */
+.page-banner {
+  position: relative;
+  width: 100%;
+  height: 660px; /* Figma spec */
+  /* White overlay on top fades the pattern — raise the 0.6 (0–1) to fade more */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  overflow: hidden;
+}
+
+/* Media layer (photo + scroll indicator) sits behind the text overlay */
+.page-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Businessman photo — Figma Mask group x371 y-46.78 w1201.73 h748.09 (of 1440×660).
+   Masked so it fades to transparent on the left, blending into the white bg
+   (Figma Rectangle 32: linear gradient transparent → opaque from ~2% to ~45%). */
+.page-banner__photo {
+  position: absolute;
+  top: 0;
+  right: 0;        /* anchored to the right edge → always fills to the edge on wide
+                      screens (like the homepage hero), so no white gap appears */
+  width: 74.24%;   /* left edge lands at the design x371 (25.76% of 1440) */
+  height: 100%;
+  background: url("../img/banner-pc.png") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+          mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+}
+
+/* SCROLL indicator — far-left edge (Figma line x42 y274 h153, text x37 y461) */
+.page-banner__scroll {
+  position: absolute;
+  /* 35px from the centered 1440 container's left edge (not the viewport) on wide screens */
+  left: max(35px, calc(50% - 685px));
+  top: 274px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px; /* line bottom y427 → SCROLL text y461 */
+  z-index: 3;
+  animation: pb-scroll-bob 2.4s ease-in-out infinite;
+}
+@keyframes pb-scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__scroll { animation: none; }
+}
+.page-banner__scroll-line {
+  width: 1px;
+  height: 153px; /* Figma spec */
+  background: #000000;
+}
+.page-banner__scroll-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  letter-spacing: 6.3px;
+  color: #000000;
+}
+
+/* Text overlay — centered 1440 container, 100px side padding (matches Figma x origins) */
+.page-banner__inner {
+  position: relative;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 100px;
+  z-index: 2;
+}
+
+/* "Features" — decorative en heading (Figma x100 y51, 100px, rgba(65,99,136,0.1)) */
+.page-banner__en {
+  position: absolute;
+  top: 51px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px; /* Figma spec */
+  line-height: 1;
+  color: rgba(65, 99, 136, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 私たちの強み — jp sub-title (Figma x100 y154, 36px, #868181, ls 15%) */
+.page-banner__jp {
+  position: absolute;
+  top: 138px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 36px; /* Figma spec */
+  letter-spacing: 0.15em;
+  color: #868181;
+}
+
+/* Lead copy (Figma x100 y359, 29px, line-height 180%, #000) */
+.page-banner__lead {
+  position: absolute;
+  top: 359px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 29px; /* Figma spec */
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* Breadcrumb — bottom of banner (Figma x0 y615, padding 11px 0 11px 100px) */
+.page-banner__breadcrumb {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 11px 0;
+  /* align with the 1440 container's left padding on wide screens */
+  padding-left: max(100px, calc(50% - 620px));
+  z-index: 3;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #323232;
+}
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.breadcrumb a {
+  color: #323232;
+}
+.breadcrumb__sep {
+  display: inline-flex;
+  width: 10px;  /* Figma arrow 10×10 */
+  height: 10px;
+  color: #323232;
+}
+.breadcrumb__current {
+  color: #323232;
+}
+
+/* =============================================
+   Banner — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .page-banner {
+    height: 560px;
+  }
+  .page-banner__inner {
+    padding: 0 48px;
+  }
+  .page-banner__en {
+    left: 48px;
+    font-size: 80px;
+  }
+  .page-banner__jp {
+    left: 48px;
+    font-size: 30px;
+  }
+  .page-banner__lead {
+    left: 48px;
+    font-size: 24px;
+  }
+  .page-banner__scroll {
+    left: 28px;
+    top: 150px;        /* fit inside the 560px banner, clear of the breadcrumb */
+  }
+  .page-banner__scroll-line {
+    height: 120px;
+  }
+  .page-banner__breadcrumb {
+    padding-left: 48px;
+  }
+}
+
+/* =============================================
+   Banner — SP (< 768px)  —  Figma node 4142:833 (390×560)
+   Flatten to a single column: title → breadcrumb → photo → lead
+   ============================================= */
+@media (max-width: 767px) {
+  .page-banner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-position: top center;
+  }
+  /* Let the overlay children flow into the column */
+  .page-banner__inner {
+    display: contents;
+  }
+
+  /* Title group (Figma h2 x19 y17) */
+  .page-banner__en {
+    position: static;
+    order: 1;
+    padding: 17px 0 0 19px;
+    font-size: 50px; /* Figma SP spec */
+    color: rgba(65, 99, 136, 0.2); /* Figma SP spec */
+  }
+  .page-banner__jp {
+    position: static;
+    margin-top: -15px;
+    order: 1;
+    padding: 4px 0 0 24px; /* x19 group + x5 = 24 */
+    font-size: 20px; /* Figma SP spec */
+  }
+
+  /* Breadcrumb between title and photo (per SP design) */
+  .page-banner__breadcrumb {
+    position: static;
+    order: 2;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+  }
+
+  /* Photo block (Figma Mask group x37 y166 w352.64 h271) */
+  .page-banner__media {
+    position: relative;
+    order: 3;
+    inset: auto;
+    margin: 12px 0 0 9.5%; /* 37 / 390 */
+    width: 90.4%;          /* 352.64 / 390 */
+    aspect-ratio: 352.64 / 271;
+  }
+  .page-banner__photo {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/banner-sp.png"); /* SP-specific crop */
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  /* SCROLL on the left of the photo (Figma x12 y210 inside FV) */
+  .page-banner__scroll {
+    left: -25px;
+    top: 44px; /* image top y166 → scroll y210 */
+    gap: 12px;
+  }
+  .page-banner__scroll-line {
+    height: 76px; /* Figma SP spec */
+  }
+  .page-banner__scroll-text {
+    font-size: 14px; /* Figma SP spec */
+    letter-spacing: 4.9px;
+  }
+
+  /* Lead copy — centered below photo (Figma x21 y478, 16px, center) */
+  .page-banner__lead {
+    position: static;
+    order: 4;
+    padding: 24px 20px 32px;
+    font-size: 16px; /* Figma SP spec */
+    text-align: center;
+  }
+}
+
+/* =============================================
+   Contact content (お問い合わせ)  —  Figma 4142:342
+   ============================================= */
+.contact {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  padding: 90px 100px 110px;
+}
+.contact__inner { max-width: 1080px; margin: 0 auto; }
+.contact__urgent {
+  margin: 0 0 44px;
+  text-align: center;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 21px;
+  color: #323232;
+}
+
+/* ----- Quick contact (phone / LINE) ----- */
+.contact-quick { display: flex; justify-content: center; gap: 30px; margin-bottom: 84px; }
+.contact-quick__box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 420px;
+  max-width: 100%;
+  padding: 24px 26px;
+  border: 1.5px solid #1B3D6E;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #1B3D6E;
+  transition: background 0.25s ease;
+}
+.contact-quick__box:hover { background: rgba(27, 61, 110, 0.04); }
+.contact-quick__icon { width: 52px; height: 52px; flex-shrink: 0; object-fit: contain; }
+.contact-quick__text { display: flex; flex-direction: column; gap: 5px; }
+.contact-quick__title { font-family: var(--font-jp-serif); font-weight: 700; font-size: 21px; color: #1B3D6E; }
+.contact-quick__sub { font-family: var(--font-jp-serif); font-size: 13px; color: #5a5a5a; line-height: 1.5; }
+.contact-quick__chev { margin-left: auto; width: 10px; height: 18px; flex-shrink: 0; }
+.contact-quick__chev svg { width: 100%; height: 100%; display: block; }
+.contact-quick__box--line { border-color: #06C755; color: #06C755; }
+.contact-quick__box--line .contact-quick__title { color: #06C755; }
+.contact-quick__box--line:hover { background: rgba(6, 199, 85, 0.05); }
+
+/* ----- Steps (01 入力 / 02 内容確認 / 03 完了) ----- */
+.contact-steps { display: flex; justify-content: center; align-items: center; margin-bottom: 84px; }
+.contact-step__circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: #8FA8C8;
+  color: #ffffff;
+}
+.contact-step--active .contact-step__circle { background: #1B3D6E; }
+.contact-step__num { font-family: "Cormorant Garamond", var(--font-jp-serif); font-weight: 600; font-size: 40px; line-height: 1; }
+.contact-step__label { font-family: var(--font-jp-serif); font-size: 15px; line-height: 1; }
+.contact-step__line { width: 96px; border-top: 2px dotted #AEBCD0; }
+
+/* ----- Form ----- */
+.contact-form__intro { text-align: center; margin-bottom: 52px; }
+.contact-form__intro-lead {
+  margin: 0 0 22px;
+  font-family: var(--font-jp-serif); font-weight: 700; font-size: 19px; color: #323232;
+}
+.contact-form__intro-note {
+  margin: 0;
+  font-family: var(--font-jp-serif); font-size: 16px; line-height: 1.9; color: #323232;
+}
+.contact-form__intro-note a { color: #323232; text-decoration: underline; }
+
+.contact-form { max-width: 900px; margin: 0 auto; }
+.contact-form__row { display: flex; gap: 28px; align-items: flex-start; margin-bottom: 30px; }
+.contact-form__label {
+  flex-shrink: 0; width: 180px; padding-top: 15px;
+  font-family: var(--font-jp-serif); font-size: 17px; color: #323232;
+}
+.contact-form__label .req { color: #D0021B; margin-left: 2px; }
+.contact-form__field { flex: 1; }
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  padding: 15px 18px;
+  border: 1px solid #C4C4C4;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-jp-serif);
+  font-size: 16px;
+  color: #323232;
+}
+.contact-form__field textarea { min-height: 190px; resize: vertical; display: block; }
+.contact-form__field input::placeholder,
+.contact-form__field textarea::placeholder { color: #B2B2B2; }
+.contact-form__field input:focus,
+.contact-form__field textarea:focus { outline: none; border-color: #1B3D6E; }
+
+.contact-form__submit { display: flex; justify-content: center; margin-top: 50px; }
+.contact-form__submit .detail-btn {
+  border: 0; background: transparent; cursor: pointer; font: inherit;
+  -webkit-appearance: none; appearance: none;
+}
+.contact-form__submit .detail-btn__accent { background: #0340A4; }
+
+@media (max-width: 1024px) {
+  .contact { padding: 64px 48px 90px; }
+}
+@media (max-width: 767px) {
+  .contact { padding: 48px 20px 64px; }
+  .contact__urgent { font-size: 16px; margin-bottom: 28px; }
+  .contact-quick { flex-direction: column; align-items: center; gap: 20px; margin-bottom: 56px; }
+  .contact-quick__box { width: 100%; max-width: 460px; }
+  .contact-quick__title { font-size: 17px; }
+  .contact-steps { margin-bottom: 56px; }
+  .contact-step__circle { width: 76px; height: 76px; }
+  .contact-step__num { font-size: 26px; }
+  .contact-step__label { font-size: 11px; }
+  .contact-step__line { width: 28px; }
+  .contact-form__intro { margin-bottom: 36px; }
+  .contact-form__intro-lead { font-size: 16px; }
+  .contact-form__intro-note { font-size: 14px; }
+  .contact-form__row { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 22px; }
+  .contact-form__label { width: 100%; padding-top: 0; font-size: 15px; }
+  .contact-form__field { width: 100%; }
+  .contact-form__field input, .contact-form__field textarea { font-size: 15px; }
+  .contact-form__field textarea { min-height: 150px; }
+}
+
+/* =============================================
+   Confirm step (内容確認 — step 2) review table
+   ============================================= */
+.confirm-table { max-width: 900px; margin: 0 auto; border-top: 1px solid #D5D8DD; }
+.confirm-row {
+  display: flex; gap: 28px; align-items: flex-start;
+  padding: 26px 8px; border-bottom: 1px solid #D5D8DD;
+}
+.confirm-row__label { flex-shrink: 0; width: 240px; font-family: var(--font-jp-serif); font-size: 17px; color: #323232; }
+.confirm-row__value { flex: 1; font-family: var(--font-jp-serif); font-size: 17px; line-height: 1.8; color: #555; }
+.confirm-actions { display: flex; justify-content: center; gap: 24px; margin-top: 50px; flex-wrap: wrap; }
+.confirm-actions .detail-btn__accent { background: #0340A4; }
+@media (max-width: 767px) {
+  .confirm-row { flex-direction: column; gap: 6px; padding: 18px 4px; }
+  .confirm-row__label { width: 100%; font-size: 14px; color: #888; }
+  .confirm-row__value { font-size: 15px; }
+}
+
+/* =============================================
+   Complete step (完了 — step 3)
+   ============================================= */
+.complete__lead {
+  margin: 0 0 40px; text-align: center;
+  font-family: var(--font-jp-serif); font-weight: 700; font-size: 21px; color: #323232;
+}
+.complete__body {
+  max-width: 760px; margin: 0 auto;
+  font-family: var(--font-jp-serif); font-size: 17px; line-height: 1.95; color: #323232;
+}
+.complete__body p { margin: 0; }
+.complete__body p + p { margin-top: 1.8em; }
+.complete__actions { display: flex; justify-content: center; margin-top: 56px; }
+.complete__actions .detail-btn__accent { background: #2CA5A1; }
+@media (max-width: 767px) {
+  .complete__lead { font-size: 17px; margin-bottom: 28px; }
+  .complete__body { font-size: 15px; }
+  .complete__actions { margin-top: 40px; }
+}

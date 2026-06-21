@@ -1,0 +1,497 @@
+/* infomation/css/style.css - Information page (oshirase)
+   Shared header/footer/CTA via ../css/common.css. Page-specific: banner + news list.
+   Banner images in ../img. */
+
+/* ===== Page banner (FV) - same as other sub-pages ===== */
+/* =============================================
+   Page banner (FV)  —  Figma node 4142:367
+   Frame: 1440 × 660. White diagonal-pattern bg + businessman photo
+   fading into the white on its left edge.
+   ============================================= */
+.page-banner {
+  position: relative;
+  width: 100%;
+  height: 660px; /* Figma spec */
+  /* White overlay on top fades the pattern — raise the 0.6 (0–1) to fade more */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  overflow: hidden;
+}
+
+/* Media layer (photo + scroll indicator) sits behind the text overlay */
+.page-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Businessman photo — Figma Mask group x371 y-46.78 w1201.73 h748.09 (of 1440×660).
+   Masked so it fades to transparent on the left, blending into the white bg
+   (Figma Rectangle 32: linear gradient transparent → opaque from ~2% to ~45%). */
+.page-banner__photo {
+  position: absolute;
+  top: 0;
+  right: 0;        /* anchored to the right edge → always fills to the edge on wide
+                      screens (like the homepage hero), so no white gap appears */
+  width: 74.24%;   /* left edge lands at the design x371 (25.76% of 1440) */
+  height: 100%;
+  background: url("../img/banner-pc.png") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+          mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+}
+
+/* SCROLL indicator — far-left edge (Figma line x42 y274 h153, text x37 y461) */
+.page-banner__scroll {
+  position: absolute;
+  /* 35px from the centered 1440 container's left edge (not the viewport) on wide screens */
+  left: max(35px, calc(50% - 685px));
+  top: 274px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px; /* line bottom y427 → SCROLL text y461 */
+  z-index: 3;
+  animation: pb-scroll-bob 2.4s ease-in-out infinite;
+}
+@keyframes pb-scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__scroll { animation: none; }
+}
+.page-banner__scroll-line {
+  width: 1px;
+  height: 153px; /* Figma spec */
+  background: #000000;
+}
+.page-banner__scroll-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  letter-spacing: 6.3px;
+  color: #000000;
+}
+
+/* Text overlay — centered 1440 container, 100px side padding (matches Figma x origins) */
+.page-banner__inner {
+  position: relative;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 100px;
+  z-index: 2;
+}
+
+/* "Features" — decorative en heading (Figma x100 y51, 100px, rgba(65,99,136,0.1)) */
+.page-banner__en {
+  position: absolute;
+  top: 51px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px; /* Figma spec */
+  line-height: 1;
+  color: rgba(65, 99, 136, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 私たちの強み — jp sub-title (Figma x100 y154, 36px, #868181, ls 15%) */
+.page-banner__jp {
+  position: absolute;
+  top: 138px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 36px; /* Figma spec */
+  letter-spacing: 0.15em;
+  color: #868181;
+}
+
+/* Lead copy (Figma x100 y359, 29px, line-height 180%, #000) */
+.page-banner__lead {
+  position: absolute;
+  top: 359px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 29px; /* Figma spec */
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* Breadcrumb — bottom of banner (Figma x0 y615, padding 11px 0 11px 100px) */
+.page-banner__breadcrumb {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 11px 0;
+  /* align with the 1440 container's left padding on wide screens */
+  padding-left: max(100px, calc(50% - 620px));
+  z-index: 3;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 18px; /* Figma spec */
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #323232;
+}
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.breadcrumb a {
+  color: #323232;
+}
+.breadcrumb__sep {
+  display: inline-flex;
+  width: 10px;  /* Figma arrow 10×10 */
+  height: 10px;
+  color: #323232;
+}
+.breadcrumb__current {
+  color: #323232;
+}
+
+/* =============================================
+   Banner — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .page-banner {
+    height: 560px;
+  }
+  .page-banner__inner {
+    padding: 0 48px;
+  }
+  .page-banner__en {
+    left: 48px;
+    font-size: 80px;
+  }
+  .page-banner__jp {
+    left: 48px;
+    font-size: 30px;
+  }
+  .page-banner__lead {
+    left: 48px;
+    font-size: 24px;
+  }
+  .page-banner__scroll {
+    left: 28px;
+    top: 150px;        /* fit inside the 560px banner, clear of the breadcrumb */
+  }
+  .page-banner__scroll-line {
+    height: 120px;
+  }
+  .page-banner__breadcrumb {
+    padding-left: 48px;
+  }
+}
+
+/* =============================================
+   Banner — SP (< 768px)  —  Figma node 4142:833 (390×560)
+   Flatten to a single column: title → breadcrumb → photo → lead
+   ============================================= */
+@media (max-width: 767px) {
+  .page-banner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-position: top center;
+  }
+  /* Let the overlay children flow into the column */
+  .page-banner__inner {
+    display: contents;
+  }
+
+  /* Title group (Figma h2 x19 y17) */
+  .page-banner__en {
+    position: static;
+    order: 1;
+    padding: 17px 0 0 19px;
+    font-size: 50px; /* Figma SP spec */
+    color: rgba(65, 99, 136, 0.2); /* Figma SP spec */
+  }
+  .page-banner__jp {
+    position: static;
+    margin-top: -15px;
+    order: 1;
+    padding: 4px 0 0 24px; /* x19 group + x5 = 24 */
+    font-size: 20px; /* Figma SP spec */
+  }
+
+  /* Breadcrumb between title and photo (per SP design) */
+  .page-banner__breadcrumb {
+    position: static;
+    order: 2;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+  }
+
+  /* Photo block (Figma Mask group x37 y166 w352.64 h271) */
+  .page-banner__media {
+    position: relative;
+    order: 3;
+    inset: auto;
+    margin: 12px 0 0 9.5%; /* 37 / 390 */
+    width: 90.4%;          /* 352.64 / 390 */
+    aspect-ratio: 352.64 / 271;
+  }
+  .page-banner__photo {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/banner-sp.png"); /* SP-specific crop */
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  /* SCROLL on the left of the photo (Figma x12 y210 inside FV) */
+  .page-banner__scroll {
+    left: -25px;
+    top: 44px; /* image top y166 → scroll y210 */
+    gap: 12px;
+  }
+  .page-banner__scroll-line {
+    height: 76px; /* Figma SP spec */
+  }
+  .page-banner__scroll-text {
+    font-size: 14px; /* Figma SP spec */
+    letter-spacing: 4.9px;
+  }
+
+  /* Lead copy — centered below photo (Figma x21 y478, 16px, center) */
+  .page-banner__lead {
+    position: static;
+    order: 4;
+    padding: 24px 20px 32px;
+    font-size: 16px; /* Figma SP spec */
+    text-align: center;
+  }
+}
+
+/* =============================================
+   News list (お知らせ一覧)  —  Figma 4202:2336
+   Reuses the homepage Infomation item look (date + tag pill + desc + line/accent),
+   in a clean centred column with pagination.
+   ============================================= */
+.news { background: #ffffff; padding: 80px 100px 100px; }
+.news__inner { max-width: 1040px; margin: 0 auto; }
+.news__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 56px; }
+.news-item { position: relative; display: block; padding-bottom: 28px; text-decoration: none; color: inherit; cursor: pointer; }
+.news-item__date {
+  margin: 0 0 16px;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  color: #000;
+}
+.news-item__tag {
+  display: inline-block;
+  width: 97px;
+  height: 26px;
+  border-radius: 13px;
+  background: #4E5D76;
+  margin-bottom: 18px;
+}
+.news-item__desc {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #000;
+}
+.news-item__line { position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.news-item__accent {
+  position: absolute; left: 0; bottom: 0; width: 70px; height: 4px;
+  background: #0340A4;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.news-item:hover .news-item__accent { width: 100%; }
+@media (prefers-reduced-motion: reduce) { .news-item__accent { transition: none; } }
+
+/* Pagination — serif numerals, navy with a light-blue current page (Figma 4202:2336) */
+.news-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 72px;
+}
+.news-pager__num {
+  font-family: "Cormorant Garamond", var(--font-jp-serif);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+  color: #1B3D6E;          /* navy (clickable pages) */
+  text-decoration: none;
+  padding-bottom: 3px;
+  transition: color 0.25s ease;
+}
+.news-pager__num:hover { color: #6085B7; }
+.news-pager__num.is-active {
+  color: #6085B7;          /* light blue (current page) */
+  border-bottom: 1px solid #6085B7;
+  pointer-events: none;
+}
+.news-pager__arrow {
+  display: inline-flex;
+  align-items: center;
+  width: 38px;
+  height: 14px;
+  color: #1B3D6E;          /* navy arrows */
+  transition: opacity 0.25s ease;
+}
+.news-pager__arrow svg { width: 100%; height: 100%; display: block; }
+.news-pager__arrow:hover { opacity: 0.55; }
+
+@media (max-width: 1024px) {
+  .news { padding: 64px 48px 90px; }
+}
+@media (max-width: 767px) {
+  .news { padding: 48px 20px 64px; }
+  .news__list { gap: 40px; }
+  .news-item__date, .news-item__desc { font-size: 15px; }
+  .news-pager { margin-top: 48px; gap: 14px; }
+  .news-pager__num { font-size: 20px; }
+  .news-pager__arrow { width: 28px; }
+}
+
+/* =============================================
+   News detail (お知らせ詳細)  —  Figma 4142:342
+   Top/bottom frame borrowed from the homepage Company blog (line + slash + sparkle only).
+   ============================================= */
+.news-detail {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  padding: 90px 100px 100px;
+}
+.news-detail__inner {
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 64px 80px 72px;
+}
+/* Frame deco: top line + slash-tl + sparkle-tr / bottom line + sparkle-bl + slash-br */
+.nd-frame { position: absolute; pointer-events: none; z-index: 0; }
+.nd-frame--tline { top: 0; left: 15px; right: 5px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.nd-frame--bline { bottom: 0; left: 5px; right: 15px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.nd-frame--tl, .nd-frame--br { width: 54px; height: 54px; }
+.nd-frame--tl { top: -27px; left: -12px; }
+.nd-frame--br { bottom: -27px; right: -12px; }
+.nd-frame--tl::before, .nd-frame--br::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom right,
+    transparent calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px));
+}
+.nd-frame--star-tr, .nd-frame--star-bl {
+  width: 16px; height: 16px; background-color: #B1B1B1;
+  -webkit-mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+}
+.nd-frame--star-tr { top: -8px; right: -8px; }
+.nd-frame--star-bl { bottom: -8px; left: -8px; }
+
+/* Scroll-into-view draw-in (same as homepage Company blog frame).
+   Don't fade the article itself — only draw the frame in. */
+.news-detail__inner[data-reveal] { opacity: 1; transform: none; transition: none; }
+.nd-frame--tl, .nd-frame--br {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.5s ease 0.15s;
+}
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--tl,
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--br {
+  transform: rotate(-180deg) scale(0.3); opacity: 0;
+}
+.nd-frame--tline { transform-origin: left center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.nd-frame--bline { transform-origin: right center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--tline,
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--bline { transform: scaleX(0); }
+.nd-frame--star-tr, .nd-frame--star-bl {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.5s ease 0.6s;
+}
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--star-tr,
+.news-detail__inner[data-reveal]:not(.is-visible) .nd-frame--star-bl {
+  transform: rotate(-180deg) scale(0); opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-detail__inner[data-reveal],
+  .nd-frame--tl, .nd-frame--br,
+  .nd-frame--tline, .nd-frame--bline,
+  .nd-frame--star-tr, .nd-frame--star-bl { transition: none; }
+}
+
+/* Article content */
+.news-detail__body { position: relative; z-index: 1; }
+.news-detail__meta { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.news-detail__date { font-family: var(--font-jp-serif); font-size: 16px; color: #323232; }
+.news-detail__tag {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 97px; height: 28px; padding: 0 14px; border-radius: 14px;
+  background: #4E5D76; color: #ffffff;
+  font-family: var(--font-jp-serif); font-size: 14px;
+}
+.news-detail__title {
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #C9CDD3;
+  font-family: var(--font-jp-serif); font-weight: 600; font-size: 34px; line-height: 1.5; color: #1A1A1A;
+}
+.news-detail__text {
+  padding-top: 30px;
+  font-family: var(--font-jp-serif); font-weight: 400; font-size: 17px; line-height: 2; color: #323232;
+}
+.news-detail__text p { margin: 0; }
+.news-detail__text p + p { margin-top: 1.8em; }
+
+/* Back-to-list button (centred, teal accent) */
+.news-detail__back { display: flex; justify-content: center; margin-top: 56px; }
+.news-detail__back .detail-btn__accent { background: #2CA5A1; }
+
+@media (max-width: 1024px) {
+  .news-detail { padding: 64px 48px 90px; }
+  .news-detail__inner { padding: 48px 40px 56px; }
+  .news-detail__title { font-size: 28px; }
+}
+@media (max-width: 767px) {
+  .news-detail { padding: 40px 20px 64px; }
+  .news-detail__inner { padding: 36px 22px 44px; }
+  .news-detail__title { font-size: 22px; padding-bottom: 20px; }
+  .news-detail__text { font-size: 15px; padding-top: 22px; }
+  .news-detail__back { margin-top: 40px; }
+  /* Smaller slash corners on SP */
+  .nd-frame--tl, .nd-frame--br { width: 32px; height: 32px; }
+  .nd-frame--tl { top: -16px; left: 0; }
+  .nd-frame--br { bottom: -16px; right: 0; }
+}

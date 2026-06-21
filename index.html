@@ -20,6 +20,7 @@
 </head>
 
 <body>
+  <!-- @include header -->
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="site-header">
     <div class="site-header__inner">
@@ -32,10 +33,10 @@
       <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
         <ul class="site-nav__list">
           <li><a href="#features">私たちの強み</a></li>
-          <li><a href="#service">サービス</a></li>
+          <li><a href="service/index.html">サービス</a></li>
           <li><a href="#company">企業情報</a></li>
-          <li><a href="#case">事例紹介</a></li>
-          <li><a href="#info">お知らせ</a></li>
+          <li><a href="case/index.html">事例紹介</a></li>
+          <li><a href="infomation/index.html">お知らせ</a></li>
         </ul>
       </nav>
 
@@ -45,7 +46,7 @@
           <a href="tel:03XXXXXXXX" class="site-header__tel--tel">TEL<span class="site-header__tel--num">03-xxx-xxx</span></a>
           <p class="site-header__tel-hours">受付時間：平日9:00〜18:00</p>
         </div>
-        <a href="#cta" class="header-cta-btn">お問い合わせ</a>
+        <a href="contact/index.html" class="header-cta-btn">お問い合わせ</a>
       </div>
 
       <!-- Icon cluster + hamburger (SP only) -->
@@ -74,6 +75,7 @@
       </div>
     </div>
   </header>
+<!-- @end header -->
 
   <main>
     <!-- ============ HERO / FV ============ -->
@@ -384,48 +386,74 @@
           <span class="company__heading-jp" id="company-title">企業情報</span>
         </h2>
 
-        <!-- Items list (right column on PC) -->
-        <ul class="company__list">
-          <!-- Outer corner slashes — positioned absolute relative to list -->
-          <span class="company__corner company__corner--tl" aria-hidden="true"></span>
-          <span class="company__corner company__corner--br" aria-hidden="true"></span>
-          <!-- Item 1: 私たちの強み — with banner image background -->
-          <li class="company-item company-item--banner">
-            <a href="features/index.html" class="company-item__link">
-              <span class="company-item__label">私たちの強み</span>
-              <span class="company-item__arrow" aria-hidden="true">
-                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
-              </span>
-            </a>
-            <span class="company-item__divider company-item__divider--top" aria-hidden="true"></span>
-            <span class="company-item__banner-accent-top" aria-hidden="true"></span>
-            <span class="company-item__banner-accent-bottom" aria-hidden="true"></span>
-          </li>
+        <div class="company__body" data-reveal>
+          <!-- Frame deco -->
+          <span class="company__frame company__frame--tline" aria-hidden="true"></span>
+          <span class="company__frame company__frame--bline" aria-hidden="true"></span>
+          <span class="company__frame company__frame--tl" aria-hidden="true"></span>
+          <span class="company__frame company__frame--br" aria-hidden="true"></span>
+          <span class="company__frame company__frame--star-tr" aria-hidden="true"></span>
+          <span class="company__frame company__frame--star-bl" aria-hidden="true"></span>
 
-          <!-- Item 2: 代表あいさつ -->
-          <li class="company-item">
-            <a href="#" class="company-item__link">
-              <span class="company-item__label">代表あいさつ</span>
-              <span class="company-item__arrow" aria-hidden="true">
-                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
-              </span>
-            </a>
-            <span class="company-item__divider" aria-hidden="true"></span>
-            <span class="company-item__accent" aria-hidden="true"></span>
-          </li>
+          <!-- Intro text (left) -->
+          <div class="company__intro" data-reveal>
+            <p class="company__intro-p">私たちは、<br />お客様との長期的な信頼関係を何よりも大切にしています。</p>
+            <p class="company__intro-p">そのために、どのような想いで日々の業務に向き合い、<br />どのような強みを持ってご支援しているのか。</p>
+            <p class="company__intro-p">安心してご相談いただくために、<br />まずは私たちのことを知っていただければ幸いです。</p>
+          </div>
 
-          <!-- Item 3: 事務所概要 -->
-          <li class="company-item">
-            <a href="#" class="company-item__link">
-              <span class="company-item__label">事務所概要</span>
-              <span class="company-item__arrow" aria-hidden="true">
-                <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
-              </span>
-            </a>
-            <span class="company-item__divider" aria-hidden="true"></span>
-            <span class="company-item__accent" aria-hidden="true"></span>
-          </li>
-        </ul>
+          <!-- Link rows (right) — expand to reveal a photo on hover -->
+          <ul class="company__list">
+            <li class="company-item company-item--01" data-reveal>
+              <a href="features/index.html" class="company-item__link">
+                <span class="company-item__media" aria-hidden="true"></span>
+                <span class="company-item__line company-item__line--top" aria-hidden="true"></span>
+                <span class="company-item__bar-top" aria-hidden="true"></span>
+                <span class="company-item__text">
+                  <span class="company-item__title">私たちの強み</span>
+                  <span class="company-item__en">Feature</span>
+                </span>
+                <span class="company-item__arrow" aria-hidden="true">
+                  <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+                </span>
+                <span class="company-item__line" aria-hidden="true"></span>
+                <span class="company-item__accent" aria-hidden="true"></span>
+              </a>
+            </li>
+
+            <li class="company-item company-item--02" data-reveal data-reveal-delay="1">
+              <a href="#" class="company-item__link">
+                <span class="company-item__media" aria-hidden="true"></span>
+                <span class="company-item__bar-top" aria-hidden="true"></span>
+                <span class="company-item__text">
+                  <span class="company-item__title">代表あいさつ</span>
+                  <span class="company-item__en">Message</span>
+                </span>
+                <span class="company-item__arrow" aria-hidden="true">
+                  <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+                </span>
+                <span class="company-item__line" aria-hidden="true"></span>
+                <span class="company-item__accent" aria-hidden="true"></span>
+              </a>
+            </li>
+
+            <li class="company-item company-item--03" data-reveal data-reveal-delay="2">
+              <a href="#" class="company-item__link">
+                <span class="company-item__media" aria-hidden="true"></span>
+                <span class="company-item__bar-top" aria-hidden="true"></span>
+                <span class="company-item__text">
+                  <span class="company-item__title">事務所概要</span>
+                  <span class="company-item__en">Office</span>
+                </span>
+                <span class="company-item__arrow" aria-hidden="true">
+                  <img src="assets/img/arrow-icon.svg" alt="" width="40" height="40" />
+                </span>
+                <span class="company-item__line" aria-hidden="true"></span>
+                <span class="company-item__accent" aria-hidden="true"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -487,7 +515,8 @@
       </div>
     </section>
 
-    <!-- ============ CTA ============ -->
+    <!-- @include cta -->
+    <!-- ============ CTA (お問い合わせ) ============ -->
     <section class="cta" id="cta" aria-label="お問い合わせ">
       <div class="cta__inner">
         <!-- Row 1: 3 cards, transparent style with ghost icon bg -->
@@ -526,17 +555,17 @@
 
         <!-- Row 2: 3 cards with image backgrounds (PC only) -->
         <div class="cta__row cta__row--image">
-          <div class="cta-card cta-card--image">
+          <div class="cta-card cta-card--image" data-reveal>
             <h3 class="cta-card__title">お電話でのお問い合わせ</h3>
             <p class="cta-card__desc">受付時間：平日9:00〜18:00<br />定休日：土日祝</p>
             <a href="tel:03XXXXXXXX" class="cta-card__btn cta-card__btn--filled">03-XXX-XXXXにかける</a>
           </div>
-          <div class="cta-card cta-card--image">
+          <div class="cta-card cta-card--image" data-reveal data-reveal-delay="1">
             <h3 class="cta-card__title">LINEでのお問い合わせ</h3>
             <p class="cta-card__desc">LINEアカウントの[友だち追加]<br />またはQRコードから追加ください。</p>
             <a href="#" class="cta-card__btn cta-card__btn--filled">公式LINEを追加する</a>
           </div>
-          <div class="cta-card cta-card--image">
+          <div class="cta-card cta-card--image" data-reveal data-reveal-delay="2">
             <h3 class="cta-card__title">メールでのお問い合わせ</h3>
             <p class="cta-card__desc">お問い合わせページのフォームから<br />お気軽にご相談ください。</p>
             <a href="#" class="cta-card__btn cta-card__btn--filled">お問い合わせ</a>
@@ -544,9 +573,11 @@
         </div>
       </div>
     </section>
+<!-- @end cta -->
   </main>
 
-  <!-- Floating PAGE TOP — appears after scrolling past first viewport, hides over footer -->
+  <!-- @include footer -->
+  <!-- Floating PAGE TOP -->
   <button type="button" class="page-top-float" id="pageTopFloat" aria-label="ページトップへ戻る">
     <span class="page-top-float__icon" aria-hidden="true"></span>
     <span class="page-top-float__label">PAGE<br />TOP</span>
@@ -554,23 +585,19 @@
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer" id="site-footer">
-    <!-- PAGE TOP (anchored to right viewport edge) -->
     <a href="#site-header" class="page-top" aria-label="ページトップへ">
       <img src="assets/img/logo-to-top.svg" alt="" class="page-top__icon" width="60" height="60" aria-hidden="true" />
       <span class="page-top__label">PAGE<br />TOP</span>
     </a>
 
     <div class="site-footer__inner">
-      <!-- Top: Logo (swoosh + name) -->
       <div class="site-footer__top">
         <a href="#" class="site-footer__logo" aria-label="安井税理士事務所">
           <img src="assets/img/logo.svg" alt="安井税理士事務所" class="site-footer__logo-img" width="264" height="48" />
         </a>
       </div>
 
-      <!-- Main row: Address + Map (left) | Sitemap (right) -->
       <div class="site-footer__main">
-        <!-- Left: address + map -->
         <div class="site-footer__address">
           <p class="site-footer__postal">〒145-0072</p>
           <p class="site-footer__street">
@@ -587,20 +614,15 @@
           </div>
         </div>
 
-        <!-- Right: sitemap -->
         <nav class="site-footer__sitemap" aria-label="フッターナビゲーション">
-          <!-- TOP standalone row -->
           <div class="sitemap__top-row">
             <a href="#" class="sitemap__title">TOP</a>
           </div>
 
-          <!-- 4 groups + standalone block under TOP -->
           <div class="sitemap__cols">
-            <!-- サービス header -->
             <div class="sitemap__col sitemap__col--service-h">
-              <a href="#service" class="sitemap__title">サービス</a>
+              <a href="service/index.html" class="sitemap__title">サービス</a>
             </div>
-            <!-- サービス sub-items -->
             <ul class="sitemap__col sitemap__sub sitemap__col--service-s">
               <li><a href="#">月次給与・賞与計算</a></li>
               <li><a href="#">起業・スタートアップ支援</a></li>
@@ -609,30 +631,27 @@
               <li><a href="#">税務顧問</a></li>
               <li><a href="#">節税対策</a></li>
             </ul>
-            <!-- 企業情報 header -->
             <div class="sitemap__col sitemap__col--company-h">
               <a href="#company" class="sitemap__title">企業情報</a>
             </div>
-            <!-- 企業情報 sub-items -->
             <ul class="sitemap__col sitemap__sub sitemap__col--company-s">
               <li><a href="features/index.html">私たちの強み</a></li>
-              <li><a href="#">代表あいさつ</a></li>
-              <li><a href="#">事務所概要</a></li>
+              <li><a href="message/index.html">代表あいさつ</a></li>
+              <li><a href="office/index.html">事務所概要</a></li>
             </ul>
-            <!-- Standalone links (PC: under 企業情報 col 3; SP: full-width below) -->
             <div class="sitemap__standalone">
-              <a href="#info" class="sitemap__title">お知らせ</a>
-              <a href="#cta" class="sitemap__title">お問い合わせ</a>
+              <a href="infomation/index.html" class="sitemap__title">お知らせ</a>
+              <a href="contact/index.html" class="sitemap__title">お問い合わせ</a>
               <a href="#" class="sitemap__title">プライバシーポリシー</a>
             </div>
           </div>
         </nav>
       </div>
 
-      <!-- Copyright -->
       <p class="site-footer__copy">©2025 Yasui Tax Co. All rights reserved.</p>
     </div>
   </footer>
+<!-- @end footer -->
 
   <script src="js/script.js" defer></script>
 </body>

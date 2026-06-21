@@ -926,3 +926,718 @@ html {
     max-width: 420px;
   }
 }
+
+/* =============================================
+   Page-banner photo — floating/breathing motion (same as the homepage hero):
+   slow zoom-out + blur-in on load, then a gentle infinite "breathing" scale.
+   ============================================= */
+.page-banner__photo {
+  animation:
+    pb-scale-out 11.5s ease-out forwards,
+    pb-blur-out   1.5s ease-out forwards,
+    pb-float      10s ease-in-out 11.5s infinite;
+}
+@keyframes pb-scale-out {
+  0%   { transform: scale(1.125); }
+  100% { transform: scale(1); }
+}
+@keyframes pb-blur-out {
+  0%   { filter: blur(15px); }
+  100% { filter: blur(0); }
+}
+@keyframes pb-float {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__photo { animation: none; }
+}
+
+/* =============================================
+   Service + Case (+ detail-btn, case-deco) - shared blocks
+   Used by features / office (Service) and features / message / office (Case).
+   Markup lives in partials/service.html + partials/case.html.
+   ============================================= */
+/* =============================================
+   Service (サービス)  —  Figma node 4142:459 (PC) / 4142:547 (hover) / 4142:912 (SP)
+   3×2 card grid on a blue gradient. Each card: big faint number watermark,
+   title + en + arrow, broken-frame border. On hover a photo fades in.
+   ============================================= */
+.svc {
+  position: relative;
+  overflow: hidden;
+  /* Figma fill_7SJ53Q: gradient light (top) → blue (bottom) */
+  background: linear-gradient(0deg, #2866B7 0%, #D0E0F5 100%);
+  padding: 96px 0 110px;
+}
+/* Big faint logo swoosh watermark (Figma logo, opacity 0.05, right side) */
+.svc__deco {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 600px;
+  height: 680px;
+  background: url("../assets/img/promise-deco.svg") no-repeat center / contain;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+.svc__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px; /* container */
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ----- Heading (Service / サービス) — homepage-style char reveal ----- */
+.svc__heading {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 52px;
+  min-height: 104px;
+}
+.svc__heading-en {
+  display: block;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 80px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: rgba(65, 99, 136, 0.2); /* Figma fill_XIO7HO */
+  white-space: nowrap;
+}
+.svc__heading-jp {
+  position: absolute;
+  left: 6px;
+  bottom: -4px;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  color: #6D6D6D; /* Figma fill_3M08F8 */
+}
+/* Per-char mask reveal (mirrors homepage .{section}__heading) */
+.svc__heading[data-reveal] { opacity: 1; transform: none; transition: none; }
+.svc__heading .heading-char {
+  display: inline-block;
+  transform: translateY(110%);
+}
+.svc__heading.is-visible .heading-char {
+  animation: svc-char-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes svc-char-reveal {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc__heading .heading-char { transform: none; animation: none !important; }
+}
+
+/* ----- Card grid ----- */
+/* Heading sits at container-left; the grid is indented inward (per Figma) */
+.svc__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 25px; /* Figma */
+  row-gap: 40px;    /* Figma gap */
+  margin: 0 56px;   /* inset from the 1240 container */
+}
+.svc-card {
+  position: relative;
+  height: 152px; /* Figma */
+  cursor: pointer;
+  overflow: hidden;
+}
+/* Photo background — hidden, fades in on hover (Figma fill_D6EXQG: img + 50% white) */
+.svc-card__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.svc-card__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.5); /* white scrim so text stays readable */
+}
+.svc-card:hover .svc-card__photo,
+.svc-card:focus-within .svc-card__photo { opacity: 1; }
+
+/* Broken-frame border (Figma Lines 27–30, #FFFDFD) — extends to a full frame on hover */
+.svc-card__edge {
+  position: absolute;
+  z-index: 1;
+  background: #FFFDFD;
+  transition: left 0.4s ease, right 0.4s ease, top 0.4s ease, bottom 0.4s ease, background-color 0.4s ease;
+}
+.svc-card__edge--t { top: 0; left: 12px; right: 12px; height: 1px; }
+.svc-card__edge--b { bottom: 0; left: 12px; right: 12px; height: 1px; }
+.svc-card__edge--l { left: 0; top: 11px; bottom: 11px; width: 1px; }
+.svc-card__edge--r { right: 0; top: 11px; bottom: 11px; width: 1px; }
+/* Hover: corners close up → full frame (like homepage .detail-btn) */
+.svc-card:hover .svc-card__edge--t,
+.svc-card:hover .svc-card__edge--b { left: 0; right: 0; }
+.svc-card:hover .svc-card__edge--l,
+.svc-card:hover .svc-card__edge--r { top: 0; bottom: 0; }
+/* .svc-card:hover .svc-card__edge { background: #464343; } */
+@media (prefers-reduced-motion: reduce) {
+  .svc-card__edge { transition: background-color 0.3s ease; }
+}
+
+/* Big faint number watermark (Nova Cut 150px) */
+.svc-card__num {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -2px;
+  font-family: "Nova Cut", serif;
+  font-size: 150px; /* Figma style_YG5Z43 */
+  line-height: 1;
+  color: rgba(0, 69, 124, 0.1); /* Figma fill_N9CDC9 */
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+.svc-card:hover .svc-card__num { color: rgba(0, 69, 124, 0.2); } /* Figma fill_DGY2RU */
+
+/* Title + en + arrow */
+.svc-card__body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  text-align: center;
+}
+.svc-card__title {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 24px; /* Figma style_GL7CIN */
+  color: #464343;  /* Figma fill_JH429Y */
+  letter-spacing: -0.5px;
+  transition: color 0.4s ease;
+}
+.svc-card:hover .svc-card__title { color: #000; }
+.svc-card__en {
+  margin: 0;
+  font-family: "Padyakke Expanded One", var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px; /* Figma style_LHXPMS */
+  letter-spacing: 0.02em;
+  color: #000;
+}
+/* Arrow: default = ✦ (left) ──── ⌐ (top-only head, right).
+   Hover  = ──── ✦ (star slides to the right, head fades), color darkens. */
+.svc-card__arrow {
+  position: relative;
+  width: 158px;
+  max-width: 62%;
+  height: 16px;
+  margin-top: 8px;
+  color: #FFFDFD;
+  transition: color 0.4s ease;
+}
+.svc-card:hover .svc-card__arrow { color: #464343; }
+.svc-card__arrow-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+}
+/* Top-only arrowhead at the right end (just the upper stroke of ">") */
+.svc-card__arrow-head {
+  position: absolute;
+  right: -1px;
+  top: 1px;
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left center;
+  transform: translateY(-50%) rotate(30deg);
+  transition: opacity 0.3s ease;
+}
+.svc-card:hover .svc-card__arrow-head { opacity: 0; }
+/* Sparkle — left by default, slides to the right end on hover */
+.svc-card__arrow-star {
+  position: absolute;
+  left: -10px;
+  top: calc(50% + 1px);
+  width: 15px;
+  height: 16px;
+  transform: translate(0, -50%);
+  transition: left 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.svc-card__arrow-star svg { display: block; width: 100%; height: 100%; }
+.svc-card:hover .svc-card__arrow-star {
+  left: calc(100% + 10px);
+  transform: translate(-100%, -50%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-card__arrow-star { transition: none; }
+}
+
+/* =============================================
+   Service — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .svc { padding: 80px 0 90px; }
+  .svc__inner { padding: 0 48px; }
+  .svc__grid { column-gap: 20px; margin: 0; }
+  .svc-card { height: 132px; }
+  .svc-card__num { font-size: 120px; }
+  .svc-card__title { font-size: 20px; }
+  .svc-card__en { font-size: 16px; }
+}
+
+/* =============================================
+   Service — SP (< 768px)  —  Figma node 4142:912
+   2-column compact grid, no hover photo.
+   ============================================= */
+@media (max-width: 767px) {
+  .svc { padding: 48px 0 56px; }
+  .svc__inner { max-width: 420px; padding: 0 20px; }
+  .svc__deco { width: 280px; height: 320px; right: -20px; }
+
+  .svc__heading { margin-bottom: 28px; min-height: 68px; }
+  .svc__heading-en { font-size: 50px; }   /* Figma SP style_2YQOOW */
+  .svc__heading-jp { font-size: 20px; bottom: -2px; } /* Figma SP style_EEUPNE */
+
+  .svc__grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 14px;
+    row-gap: 14px;
+  }
+  .svc-card { height: 88px; }
+  .svc-card__num { font-size: 70px; top: 5px; left: -1px; } /* Figma SP style_7NXO48 */
+  .svc-card__title { font-size: 12px; font-weight: 600; }    /* Figma SP style_ANS22F */
+  .svc-card__en { font-size: 12px; }                          /* Figma SP style_WNKY8C */
+  .svc-card__arrow { width: 96px; margin-top: 0; }
+  .svc-card__edge--t, .svc-card__edge--b { left: 8px; right: 8px; }
+  .svc-card__edge--l, .svc-card__edge--r { top: 8px; bottom: 8px; }
+}
+
+/* =============================================
+   事例紹介 (Case)  —  Figma node 4141:23207 (PC) / 4141:22747 (SP)
+   Light theme, 3-column white cards on #F5F9FF, with the same
+   broken-frame button + animated slash/star decorations as the
+   homepage Case section.
+   ============================================= */
+.fcase {
+  position: relative;
+  overflow: hidden;
+  background: #F5F9FF; /* Figma fill */
+  padding: 100px 40px;
+}
+.fcase__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* Header row: heading (left) + list button (right) */
+.fcase__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.fcase__heading {
+  position: relative;
+  min-height: 104px;
+}
+.fcase__heading-en {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px; /* Figma CASE */
+  line-height: 1;
+  color: rgba(65, 99, 136, 0.1); /* Figma */
+  white-space: nowrap;
+  pointer-events: none;
+}
+.fcase__heading-jp {
+  position: relative;
+  display: inline-block;
+  margin-top: 38px;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 35px; /* Figma */
+  letter-spacing: 0.15em;
+  color: #868181; /* Figma */
+}
+/* Per-char mask reveal (same mechanism as homepage / Service heading) */
+.fcase__heading[data-reveal] { opacity: 1; transform: none; transition: none; }
+.fcase__heading .heading-char { display: inline-block; transform: translateY(110%); }
+.fcase__heading.is-visible .heading-char {
+  animation: svc-char-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ----- Cards row ----- */
+.fcase__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 70px;
+}
+.fcase-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* White card panel (Figma EL-66f7fd95: column, padding 20, gap 24) */
+.fcase-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+  flex: 1;                /* fill the item height; flexbox subtracts the margin (no overflow) */
+  margin: 7px 0;          /* leave room for the deco frame outside */
+  padding: 20px;
+}
+.fcase-card__image {
+  width: 100%;
+  aspect-ratio: 300 / 154; /* Figma image */
+  background: url("../assets/img/case-01-5c100c.png") center / cover no-repeat;
+  align-self: stretch;
+}
+.fcase-card__tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 91px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #498ABF; /* Figma */
+  color: #ffffff;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 14px;
+}
+.fcase-card__body {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+.fcase-card__title {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px; /* Figma */
+  line-height: 1.6;
+  color: #323232;
+}
+.fcase-card__client {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 16px; /* Figma */
+  color: #727272;
+}
+.fcase-card__btn { align-self: stretch; width: 100%; }
+/* Card button spans the card width → top/bottom edges scale instead of fixed 251px */
+.fcase-card__btn .detail-btn__edge--t,
+.fcase-card__btn .detail-btn__edge--b { left: 10px; right: 10px; width: auto; }
+.fcase-card__btn:hover .detail-btn__edge--t,
+.fcase-card__btn:hover .detail-btn__edge--b { left: 0; right: 0; width: auto; }
+
+/* ===== Decorations: slash corners + lines + stars (animated like homepage) ===== */
+.fcase-item .case-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+.case-deco--tline,
+.case-deco--bline {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #A0A8B3;
+}
+.case-deco--tline {
+  top: 0;
+}
+.case-deco--bline {
+  bottom: 0;
+}
+.case-deco--tl,
+.case-deco--br {
+  width: 30px;
+  height: 30px;
+}
+.case-deco--tl { top: -14px; left: -15px; }
+.case-deco--br { bottom: -14px; right: -15px; }
+.case-deco--tl::before,
+.case-deco--br::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* diagonal "\" slash */
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 0.5px),
+    #A0A8B3 calc(50% - 0.5px),
+    #A0A8B3 calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+/* Stars — slossy-icon recoloured grey via mask */
+.case-deco--star-tr,
+.case-deco--star-bl {
+  width: 15px;
+  height: 15px;
+  background-color: #A0A8B3;
+  -webkit-mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+}
+.case-deco--star-tr { top: -7px; right: -9px; }
+.case-deco--star-bl { bottom: -7px; left: -9px; }
+
+/* Reveal animation (mirror homepage): slashes rotate in, lines draw, stars pop */
+.case-deco--tl,
+.case-deco--br {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.5s ease 0.15s;
+}
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--tl,
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--br {
+  transform: rotate(-180deg) scale(0.3);
+  opacity: 0;
+}
+.case-deco--tline { transform-origin: left center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.case-deco--bline { transform-origin: right center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--tline,
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--bline { transform: scaleX(0); }
+.case-deco--star-tr,
+.case-deco--star-bl {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.5s ease 0.6s;
+}
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--star-tr,
+.fcase-item[data-reveal]:not(.is-visible) .case-deco--star-bl {
+  transform: rotate(-180deg) scale(0);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-deco--tl, .case-deco--br, .case-deco--tline, .case-deco--bline,
+  .case-deco--star-tr, .case-deco--star-bl { transition: none; }
+}
+
+/* =============================================
+   detail-btn (272×60) — ported from homepage: broken frame that
+   closes on hover, with a bottom-left accent that extends full-width.
+   ============================================= */
+.detail-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 272px;
+  height: 60px;
+  color: #4C4848;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  background: transparent;
+}
+.detail-btn__label { position: relative; z-index: 1; }
+.detail-btn__edge {
+  position: absolute;
+  background: rgba(76, 72, 72, 0.7);
+  transition: left 0.35s ease, right 0.35s ease, top 0.35s ease, bottom 0.35s ease, width 0.35s ease, height 0.35s ease;
+}
+.detail-btn__edge--t { left: 10.07px; top: 0; width: 251.83px; height: 1px; }
+.detail-btn__edge--b { left: 10.07px; bottom: 0; width: 251.83px; height: 1px; }
+.detail-btn__edge--l { left: 0; top: 10px; width: 1px; height: 40px; }
+.detail-btn__edge--r { right: 0; top: 10px; width: 1px; height: 40px; }
+.detail-btn:hover .detail-btn__edge--t,
+.detail-btn:hover .detail-btn__edge--b { left: 0; width: 100%; }
+.detail-btn:hover .detail-btn__edge--l,
+.detail-btn:hover .detail-btn__edge--r { top: 0; height: 100%; }
+.detail-btn__accent {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  width: 70px;
+  height: 4px;
+  background: #0340A4;
+  transition: width 0.35s ease, left 0.35s ease;
+}
+.detail-btn:hover .detail-btn__accent { left: 0; width: 100%; }
+
+/* Top list button "事業一覧を見る" — dark text, teal accent */
+.fcase__btn--list { color: #4C4848; flex-shrink: 0; }
+.fcase__btn--list .detail-btn__accent { background: #2CA5A1; }
+/* Card button "詳しく見る" — grey text/border, blue accent.
+   width:100% here (declared after .detail-btn) overrides the fixed 272px so the
+   button shrinks with the card — otherwise it forces a min card width and overflows. */
+.fcase-card__btn { color: #A0A8B3; margin: auto; width: 100%; }
+.fcase-card__btn .detail-btn__edge { background: #A0A8B3; }
+.fcase-card__btn .detail-btn__accent { background: #0340A4; }
+/* Bottom SP button — hidden on PC */
+.fcase__btn--sp { display: none; }
+
+/* =============================================
+   Case — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .fcase { padding: 80px 48px; }
+  .fcase__list { gap: 32px; }
+  .fcase__heading-en { font-size: 70px; }
+  .fcase__heading-jp { font-size: 28px; }
+}
+
+/* =============================================
+   Case — SP (< 768px)  —  Figma node 4141:22747
+   1-column stack, top button hidden, bottom "事例一覧を見る" shown.
+   ============================================= */
+@media (max-width: 767px) {
+  .fcase { padding: 48px 24px 56px; }
+  .fcase__head { margin-bottom: 24px; }
+  .fcase__heading { min-height: 64px; }
+  .fcase__heading-en { font-size: 50px; top: -10px; left: -8px; }
+  .fcase__heading-jp { font-size: 20px; margin-top: 24px; }
+  .fcase__btn--list { display: none; } /* hidden on SP */
+
+  .fcase__list {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .fcase-card {
+    padding: 20px 0;
+  }
+  .fcase__btn--sp {
+    display: flex;
+    margin: 40px auto 0;
+  }
+  .fcase__btn--sp .detail-btn__accent { background: #2CA5A1; }
+}
+
+/* =============================================
+   Tablet refinements (768–1024)
+   ============================================= */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Case: 3 cards are too narrow here → 2 columns (3rd wraps below) */
+  .fcase__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 40px;
+    margin: 0;
+  }
+  /* Promise: smaller photos so the text has more room */
+  .promise-row { gap: 40px; }
+  .promise-row__media { width: 36%; flex-shrink: 0; }
+}
+
+/* =============================================
+   More Contents - shared block (message / office)
+   Markup stays per-page (each page links a different pair of sub-pages),
+   but the styling is shared here.
+   ============================================= */
+.mc { background: #ffffff; padding: 0 100px 110px; }
+.mc__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+  padding-top: 100px;
+  border-top: 1px solid #C0C0C0;
+}
+.mc__head { flex-shrink: 0; }
+.mc__label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 6px;
+  font-family: var(--font-jp-serif);
+  font-size: 18px;
+  color: #323232;
+}
+.mc__label-star {
+  width: 21px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: #545353;
+  -webkit-mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+}
+.mc__title {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.1;
+  color: #323232;
+}
+.mc__cards { display: flex; flex: 1; gap: 51px; }
+.mc-card { flex: 1; display: flex; flex-direction: column; gap: 16px; text-decoration: none; }
+.mc-card__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 290 / 179;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mc-card:hover .mc-card__photo { transform: scale(1.03); }
+.mc-card__foot { display: flex; align-items: center; gap: 16px; }
+.mc-card__name {
+  flex-shrink: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 20px;
+  color: #323232;
+  white-space: nowrap;
+}
+.mc-arrow { position: relative; flex: 1; min-width: 70px; height: 16px; color: #323232; }
+.mc-arrow__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: currentColor; }
+.mc-arrow__head {
+  position: absolute; right: -1px; top: 1px; width: 14px; height: 1px;
+  background: currentColor; transform-origin: left center;
+  transform: translateY(-50%) rotate(30deg); transition: opacity 0.3s ease;
+}
+.mc-card:hover .mc-arrow__head { opacity: 0; }
+.mc-arrow__star {
+  position: absolute; left: -10px; top: calc(50% + 1px); width: 15px; height: 16px;
+  color: #323232; transform: translate(0, -50%);
+  transition: left 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mc-arrow__star svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+.mc-card:hover .mc-arrow__star { left: calc(100% + 10px); transform: translate(-100%, -50%); }
+@media (prefers-reduced-motion: reduce) { .mc-arrow__star { transition: none; } }
+@media (max-width: 1024px) {
+  .mc { padding: 0 48px 90px; }
+  .mc__inner { flex-direction: column; gap: 40px; padding-top: 64px; }
+  .mc__cards { width: 100%; }
+}
+@media (max-width: 767px) {
+  .mc { padding: 0 20px 56px; }
+  .mc__inner { padding-top: 48px; gap: 28px; }
+  .mc__title { font-size: 34px; }
+  .mc__cards { gap: 16px; }
+  .mc-card { gap: 10px; }
+  .mc-card__name { font-size: 15px; }
+  .mc-arrow { min-width: 24px; }
+}
