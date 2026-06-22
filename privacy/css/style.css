@@ -14,7 +14,7 @@
   height: 660px; /* Figma spec */
   background:
     linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
-    url("../img/banner-bg.png") center / cover no-repeat,
+    url("../../assets/img/banner-bg.png") center / cover no-repeat,
     #ffffff;
   overflow: hidden;
 }

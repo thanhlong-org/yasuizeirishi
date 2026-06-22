@@ -37,6 +37,7 @@ const PAGES = [
   { file: 'service/index.html',  base: '../', home: '../index.html' },
   { file: 'privacy/index.html',  base: '../', home: '../index.html' },
   { file: 'advisory/index.html', base: '../', home: '../index.html' },
+  { file: 'case/detail/index.html', base: '../../', home: '../../index.html' },
 ];
 
 const cache = {};
