@@ -1,0 +1,384 @@
+/* privacy/css/style.css - Privacy Policy page (プライバシーポリシー)
+   Shared header/footer/CTA via ../css/common.css. Page-specific: banner + policy body.
+   Banner images in ../img (borrowed from the homepage hero). */
+
+/* ===== Page banner (FV) - same as other sub-pages ===== */
+/* =============================================
+   Page banner (FV)  —  Figma node 4215:39
+   Frame: 1440 × 660. White diagonal-pattern bg + businessman photo
+   fading into the white on its left edge.
+   ============================================= */
+.page-banner {
+  position: relative;
+  width: 100%;
+  height: 660px; /* Figma spec */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  overflow: hidden;
+}
+
+.page-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.page-banner__photo {
+  position: absolute;
+  top: 0;
+  right: 0;        /* anchored to the right edge → always fills to the edge on wide
+                      screens (like the homepage hero), so no white gap appears */
+  width: 74.24%;   /* left edge lands at the design x371 (25.76% of 1440) */
+  height: 100%;
+  background: url("../img/banner-pc.png") center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+          mask-image: linear-gradient(90deg, transparent 4%, #000 44%);
+}
+
+/* SCROLL indicator — far-left edge */
+.page-banner__scroll {
+  position: absolute;
+  left: max(35px, calc(50% - 685px));
+  top: 274px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  z-index: 3;
+  animation: pb-scroll-bob 2.4s ease-in-out infinite;
+}
+@keyframes pb-scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-banner__scroll { animation: none; }
+}
+.page-banner__scroll-line {
+  width: 1px;
+  height: 153px;
+  background: #000000;
+}
+.page-banner__scroll-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-jp-serif);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 6.3px;
+  color: #000000;
+}
+
+/* Text overlay — centered 1440 container, 100px side padding */
+.page-banner__inner {
+  position: relative;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 100px;
+  z-index: 2;
+}
+
+/* "Privacy Policy" — decorative en heading (Figma x100 y51, 100px, rgba(65,99,136,0.1)) */
+.page-banner__en {
+  position: absolute;
+  top: 51px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px;
+  line-height: 1;
+  color: rgba(65, 99, 136, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* プライバシーポリシー — jp sub-title (Figma x100 y154, 36px, #868181, ls 15%) */
+.page-banner__jp {
+  position: absolute;
+  top: 138px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: 0.15em;
+  color: #868181;
+}
+
+/* Lead copy (Figma x100 y359, 29px, line-height 180%, #000) */
+.page-banner__lead {
+  position: absolute;
+  top: 359px;
+  left: 100px;
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* Breadcrumb — bottom of banner */
+.page-banner__breadcrumb {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 11px 0;
+  padding-left: max(100px, calc(50% - 620px));
+  z-index: 3;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #323232;
+}
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.breadcrumb a { color: #323232; }
+.breadcrumb__sep {
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  color: #323232;
+}
+.breadcrumb__current { color: #323232; }
+
+/* ===== Banner — Tablet (≤ 1200px) ===== */
+@media (max-width: 1200px) {
+  .page-banner { height: 560px; }
+  .page-banner__inner { padding: 0 48px; }
+  .page-banner__en { left: 48px; font-size: 80px; }
+  .page-banner__jp { left: 48px; font-size: 30px; }
+  .page-banner__lead { left: 48px; font-size: 24px; }
+  .page-banner__scroll { left: 28px; top: 150px; }
+  .page-banner__scroll-line { height: 120px; }
+  .page-banner__breadcrumb { padding-left: 48px; }
+}
+
+/* ===== Banner — SP (< 768px) ===== */
+@media (max-width: 767px) {
+  .page-banner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-position: top center;
+  }
+  .page-banner__inner { display: contents; }
+  .page-banner__en {
+    position: static;
+    order: 1;
+    padding: 17px 0 0 19px;
+    font-size: 50px;
+    color: rgba(65, 99, 136, 0.2);
+  }
+  .page-banner__jp {
+    position: static;
+    margin-top: -15px;
+    order: 1;
+    padding: 4px 0 0 24px;
+    font-size: 20px;
+  }
+  .page-banner__breadcrumb {
+    position: static;
+    order: 2;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+  }
+  .breadcrumb { font-size: 13px; }
+  .page-banner__media {
+    position: relative;
+    order: 3;
+    inset: auto;
+    margin: 12px 0 0 9.5%;
+    width: 90.4%;
+    aspect-ratio: 352.64 / 271;
+  }
+  .page-banner__photo {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/banner-sp.png");
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .page-banner__scroll { left: -25px; top: 44px; gap: 12px; }
+  .page-banner__scroll-line { height: 76px; }
+  .page-banner__scroll-text { font-size: 14px; letter-spacing: 4.9px; }
+  .page-banner__lead {
+    position: static;
+    order: 4;
+    padding: 24px 20px 32px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+/* =============================================
+   Privacy Policy body  —  Figma node 4215:56 / 4215:57
+   Centred single column (Figma width 776). Heading with an underline + sparkle,
+   intro, six numbered clauses, and a bordered contact box at the foot.
+   ============================================= */
+.privacy {
+  background: #ffffff;
+  padding: 96px 100px 110px;
+}
+.privacy__inner {
+  max-width: 776px;
+  margin: 0 auto;
+}
+
+/* Heading — JP title + thin rule with a sparkle at its right end */
+.privacy__head { margin-bottom: 52px; }
+.privacy__heading {
+  margin: 0 0 18px;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.55;
+  color: #323232;
+}
+.privacy__rule {
+  display: block;
+  position: relative;
+  width: 44%;
+  height: 1px;
+  background: rgba(76, 72, 72, 0.55);
+}
+.privacy__rule-star {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(60%, -50%);
+  color: #9aa9c2;
+}
+
+/* Intro paragraph */
+.privacy__intro {
+  margin: 0 0 44px;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #3a3a3a;
+}
+
+/* Numbered clauses */
+.privacy__list {
+  list-style: none;
+  margin: 0 0 56px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+.pp-item {
+  display: flex;
+  gap: 12px;
+}
+.pp-item__num {
+  flex-shrink: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #323232;
+}
+.pp-item__body { flex: 1 1 auto; min-width: 0; }
+.pp-item__title {
+  margin: 0 0 8px;
+  font-family: var(--font-jp-serif);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #323232;
+}
+.pp-item__text {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #323232;
+}
+.pp-item__bullets {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+.pp-item__bullets li {
+  position: relative;
+  padding-left: 1.1em;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #323232;
+}
+.pp-item__bullets li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+}
+
+/* Contact box */
+.privacy__contact {
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  padding: 22px 26px;
+  background: #ffffff;
+}
+.privacy__contact p {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #323232;
+}
+.privacy__contact p + p { margin-top: 1.5em; }
+
+/* ===== Privacy — Tablet (≤ 1200px) ===== */
+@media (max-width: 1200px) {
+  .privacy { padding: 72px 48px 90px; }
+}
+
+/* ===== Privacy — SP (< 768px) ===== */
+@media (max-width: 767px) {
+  .privacy { padding: 48px 20px 64px; }
+  .privacy__head { margin-bottom: 36px; }
+  .privacy__heading { font-size: 22px; }
+  .privacy__rule { width: 66%; }
+  .privacy__intro { font-size: 15px; margin-bottom: 36px; }
+  .privacy__list { gap: 30px; margin-bottom: 44px; }
+  .pp-item { gap: 8px; }
+  .pp-item__num { font-size: 16px; }
+  .pp-item__title { font-size: 16px; }
+  .pp-item__text,
+  .pp-item__bullets li { font-size: 15px; }
+  .privacy__contact { padding: 18px 18px; }
+  .privacy__contact p { font-size: 14px; }
+}
