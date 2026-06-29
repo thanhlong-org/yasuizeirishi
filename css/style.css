@@ -64,10 +64,8 @@
 /* Decorative logo (bottom-left, faint Ã¢â‚¬â€ opacity baked into SVG) */
 .info__logo-deco {
   position: absolute;
-  top: 337.97px;
-  left: 82px;
-  width: 258.15px;
-  height: 293px;
+  top: 245px;
+  left: 50px;
   cursor: pointer;
   transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   object-fit: contain;
@@ -364,6 +362,7 @@
   flex-direction: column;
   gap: 0;
   padding-top: 0;
+  margin-left: 35px;
 }
 .company__intro-p {
   margin: 0;
@@ -384,10 +383,10 @@
   flex: 1.25;
   display: flex;
   flex-direction: column;
-  /* gap: 26px; */
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-right: 35px;
 }
 .company-item {
   position: relative;
@@ -505,9 +504,6 @@
   transform-origin: left center;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.company-item:hover .company-item__bar-top { transform: scaleX(1); }
-/* Khi hover link dưới, thu accent đáy của link ngay trên về 0 để 2 vạch xanh không đè nhau ở ranh giới */
-.company-item:has(+ .company-item:hover) .company-item__accent { width: 0; }
 
 /* ----- Frame deco around the body (slash corners + lines + sparkles) ----- */
 .company__frame { position: absolute; pointer-events: none; z-index: 0; }
@@ -603,7 +599,8 @@
   .company__heading-en { position: static; font-size: 70px; }
   .company__heading-jp { position: static; margin-top: -24px; font-size: 28px; letter-spacing: 3.6px; }
   .company__body { flex-direction: column; align-items: stretch; gap: 40px; padding: 36px 0; }
-  .company__intro { gap: 24px; }
+  .company__intro { gap: 24px; margin-left: 0; }
+  .company__list { margin: 0 20px; }
   /* Stacked layout: paragraphs flow normally, no 150px band */
   .company__intro-p { height: auto; display: block; }
 }
@@ -615,7 +612,8 @@
   .company { padding: 40px 20px; }
   .company__heading-en { font-size: 50px; }
   .company__heading-jp { font-size: 18px; margin-top: -18px; letter-spacing: 2.7px; }
-  .company__body { gap: 28px; padding: 28px 0; }
+  .company__body { gap: 28px; padding: 56px 0; }
+  .company__intro { display: none; }
   .company__intro-p { font-size: 15px; }
   .company-item__link { height: 120px; }
   .company-item__title { font-size: 18px; }
@@ -623,11 +621,48 @@
   .company-item__en { font-size: 14px; }
   .company-item__arrow { width: 32px; height: 32px; right: 8px; }
   .company-item:hover .company-item__text { padding-left: 20px; }
-  .company__frame--tl, .company__frame--br { display: none; }
-  .company__frame--tline,
-  .company__frame--bline {
+  .company__frame--tl,
+  .company__frame--br {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+  .company__frame--tl {
+    top: 0;
     left: 0;
+  }
+  .company__frame--br {
+    top: auto;
+    bottom: 0;
     right: 0;
+    left: auto;
+  }
+  .company__frame--tline {
+    top: 20px;
+    left: 20px;
+    right: 10px;
+    width: auto;
+  }
+  .company__frame--bline {
+    top: auto;
+    bottom: 20px;
+    left: 10px;
+    right: 20px;
+    width: auto;
+  }
+  .company__frame--star-tr,
+  .company__frame--star-bl {
+    width: 12px;
+    height: 12px;
+  }
+  .company__frame--star-tr {
+    top: 14px;
+    right: 0;
+  }
+  .company__frame--star-bl {
+    top: auto;
+    bottom: 14px;
+    left: 0;
   }
 }
 
@@ -708,10 +743,9 @@
 .service__image {
   position: absolute;
   top: 344px;
-  left: 0.24px;
-  width: 527.72px;
+  left: 35px;
+  width: 528px;
   height: 395px;
-  border-radius: 20px;
   background: url("../assets/img/service-consultant.png") center/cover no-repeat;
 }
 
@@ -719,8 +753,8 @@
 .service__desc {
   position: absolute;
   top: 763px;
-  left: 0.24px;
-  width: 537.7px;
+  left: 35px;
+  width: 528px;
   font-family: var(--font-jp-serif);
   font-weight: 400;
   font-size: 18px;
@@ -746,7 +780,7 @@
   position: absolute;
   pointer-events: none;
 }
-/* Disable generic data-reveal slide on the section Ã¢â‚¬â€ we use per-deco reveal instead */
+/* Disable generic data-reveal slide on the section Ã¢â‚¬â€  we use per-deco reveal instead */
 .service[data-reveal] {
   opacity: 1; transform: none; transition: none;
 }
@@ -774,13 +808,28 @@
 .service[data-reveal]:not(.is-visible) .service__deco--bottom-line {
   transform: scaleX(0);
 }
+
+/* Star sparkle reveal animations (mirror Case block) */
+.service__deco--star-tr,
+.service__deco--star-bl {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s,
+    opacity   0.5s ease 0.6s;
+}
+.service[data-reveal]:not(.is-visible) .service__deco--star-tr,
+.service[data-reveal]:not(.is-visible) .service__deco--star-bl {
+  transform: rotate(-180deg) scale(0);
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .service__deco--slash-tl, .service__deco--slash-br,
-  .service__deco--top-line, .service__deco--bottom-line {
+  .service__deco--top-line, .service__deco--bottom-line,
+  .service__deco--star-tr, .service__deco--star-bl {
     transition: none;
   }
 }
-/* Top horizontal line: list-relative (29, 40.66) Ã¢â€ â€™ inner (29, 282) */
+/* Top horizontal line: list-relative (29, 40.66) → inner (29, 282) */
 .service__deco--top-line {
   top: 282px;
   left: 29px;
@@ -788,7 +837,7 @@
   height: 1px;
   background: rgba(76, 72, 72, 0.7);
 }
-/* Bottom horizontal line: list-relative (0.24, 767.66) Ã¢â€ â€™ inner (0.24, 1009) */
+/* Bottom horizontal line: list-relative (0.24, 767.66) → inner (0.24, 1009) */
 .service__deco--bottom-line {
   top: 1009px;
   left: 0.24px;
@@ -835,6 +884,25 @@
   );
 }
 
+/* Star sparkle decorations at top-right + bottom-left corners */
+.service__deco--star-tr,
+.service__deco--star-bl {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(76, 72, 72, 0.7);
+  -webkit-mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
+  display: block;
+}
+.service__deco--star-tr {
+  top: 274px; /* aligned with top horizontal line (y=282) */
+  right: -8px; /* extend slightly past right edge */
+}
+.service__deco--star-bl {
+  top: 1001px; /* aligned with bottom horizontal line (y=1009) */
+  left: -8px; /* extend slightly past left edge */
+}
+
 /* ===== Service items list (right column) ===== */
 .service__list {
   position: absolute;
@@ -870,8 +938,8 @@
 /* All items start at x=617-618 from list origin */
 .service-item {
   left: 618px;
-  /* limit width so divider doesn't cross logo decoration */
-  width: 622px;
+  /* limit width so divider doesn't cross logo decoration or border slashes */
+  width: 587px;
 }
 
 .service-item__num {
@@ -1052,7 +1120,7 @@
   }
   .detail-btn.service__btn-sp {
     display: flex; /* block-level so margin auto works */
-    margin: 0 auto;
+    margin: 40px auto 0;
     width: 272px;
     height: 50px;
     font-size: 14px;
@@ -1070,11 +1138,14 @@
 
   /* Items: smaller per Figma SP spec */
   .service__list {
+    width: auto;
     gap: 0;
+    margin: 20px;
+    z-index: 1;
   }
   .service-item {
     grid-template-columns: 28px max-content 1fr;
-    column-gap: 16px;
+    column-gap: 14px;
     height: 54px;
     padding-bottom: 16px;
   }
@@ -1090,6 +1161,66 @@
   .service-item__accent {
     width: 60px;
     height: 4px;
+  }
+
+  /* Show and position decorative frame on SP */
+  .service__deco {
+    display: block;
+  }
+  .service__deco--slash-tl,
+  .service__deco--slash-br {
+    width: 40px;
+    height: 40px;
+  }
+  .service__deco--slash-tl {
+    top: 71px;
+    left: 0;
+  }
+  .service__deco--slash-br {
+    top: 440px;
+    left: auto;
+    right: 0;
+  }
+  .service__deco--top-line {
+    top: 91px;
+    left: 20px;
+    right: 10px;
+    width: auto;
+    height: 1px;
+  }
+  .service__deco--bottom-line {
+    top: 460px;
+    left: 10px;
+    right: 20px;
+    width: auto;
+    height: 1px;
+  }
+  .service__deco--star-tr {
+    top: 85px;
+    right: 0;
+    left: auto;
+    width: 12px;
+    height: 12px;
+  }
+  .service__deco--star-bl {
+    top: 454px;
+    left: 0;
+    right: auto;
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Center decorative background logo on SP */
+  .service__logo-deco {
+    display: block;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 280px;
+    opacity: 0.08;
+    z-index: 0;
   }
 }
 
@@ -1304,14 +1435,13 @@
   }
 }
 
-/* Case image Ã¢â‚¬â€ left side */
+/* Case image — left side */
 .case-item__image {
   position: absolute;
   top: 85.56px; /* Figma layout_WGWDQ8 */
-  left: 7px;
+  left: 35px;
   width: 480px;
   height: 287px;
-  border-radius: 20px;
   background: url("../assets/img/service-consultant.png") center/cover no-repeat;
 }
 
@@ -1320,7 +1450,7 @@
   position: absolute;
   top: 98.14px; /* Figma layout_MPQHDW */
   left: 601px;
-  width: 579px;
+  width: 604px;
   font-family: var(--font-jp-serif);
   font-weight: 400;
   font-size: 24px; /* style_WYS6UW */
@@ -1599,25 +1729,25 @@
   }
   .case-deco--tl {
     top: 0;
-    left: 10px;
+    left: 0;
   }
   .case-deco--br {
     top: auto;
     bottom: 0;
-    right: 10px;
+    right: 0;
     left: auto;
   }
   .case-deco--tline {
     top: 20px;
-    left: 30px;
-    right: 0;
+    left: 20px;
+    right: 10px;
     width: auto;
   }
   .case-deco--bline {
     top: auto;
     bottom: 20px;
-    left: 0;
-    right: 30px;
+    left: 10px;
+    right: 20px;
     width: auto;
   }
   /* SP stars: at corners of horizontal lines */
@@ -1628,12 +1758,12 @@
   }
   .case-deco--star-tr {
     top: 14px; /* aligned with top line at y=20 */
-    right: -6px;
+    right: 0;
   }
   .case-deco--star-bl {
     top: auto;
     bottom: 14px; /* aligned with bottom line at bottom=20 */
-    left: -6px;
+    left: 0;
   }
 }
 
@@ -1829,9 +1959,9 @@
 .features__venn {
   position: absolute;
   top: 88.7px;
-  left: 522px;
-  width: 720px;
-  height: 670px;
+  left: 579px;
+  width: 661px;
+  height: 611px;
   margin: 0 auto;
 }
 
@@ -2401,7 +2531,7 @@
   .hero__scroll {
     position: absolute;
     left: 16px;
-    bottom: 0;
+    bottom: 10px;
     top: auto;
     transform: none;
     gap: 12px;

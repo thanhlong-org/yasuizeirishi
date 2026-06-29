@@ -33,6 +33,7 @@
   background-repeat: no-repeat;
   -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 38%);
           mask-image: linear-gradient(90deg, transparent 2%, #000 38%);
+  animation: none; /* Disable zoom-in/zoom-out breathing animation only for detail page */
 }
 .page-banner__scroll {
   position: absolute;
@@ -187,8 +188,8 @@
    scroll-into-view draw-in (same motion as the homepage Company blog).
    ============================================= */
 .cd-frame { position: absolute; pointer-events: none; z-index: 0; }
-.cd-frame--tline { top: 0; left: 15px; right: 5px; height: 1px; background: rgba(76, 72, 72, 0.7); }
-.cd-frame--bline { bottom: 0; left: 5px; right: 15px; height: 1px; background: rgba(76, 72, 72, 0.7); }
+.cd-frame--tline { top: 0; left: 15px; right: 15px; height: 1px; background: #545353 }
+.cd-frame--bline { bottom: 0; left: 15px; right: 15px; height: 1px; background: #545353 }
 .cd-frame--tl, .cd-frame--br { width: 54px; height: 54px; }
 .cd-frame--tl { top: -27px; left: -12px; }
 .cd-frame--br { bottom: -27px; right: -12px; }
@@ -196,14 +197,14 @@
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(to bottom right,
     transparent calc(50% - 0.5px),
-    rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
-    rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
+    #545353 calc(50% - 0.5px),
+    #545353 calc(50% + 0.5px),
     transparent calc(50% + 0.5px));
 }
-.cd-frame--star-tr, .cd-frame--star-bl { width: 16px; height: 16px; color: #b1b1b1; }
+.cd-frame--star-tr, .cd-frame--star-bl { width: 16px; height: 16px; color: #545353; }
 .cd-frame--star-tr svg, .cd-frame--star-bl svg { display: block; width: 100%; height: 100%; fill: currentColor; }
-.cd-frame--star-tr { top: -8px; right: -8px; }
-.cd-frame--star-bl { bottom: -8px; left: -8px; }
+.cd-frame--star-tr { top: -7px; right: 0; }
+.cd-frame--star-bl { bottom: -8px; left: 0; }
 
 /* Draw-in (keyed off the framed container's [data-reveal]) */
 .cd-reveal[data-reveal] { opacity: 1; transform: none; transition: none; }
@@ -265,7 +266,13 @@
 /* =============================================
    More Contents — centred heading + 3 related case cards (animated arrow).
    ============================================= */
-.cd-more { background: #ffffff; padding: 0 100px 110px; }
+.cd-more {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    url("../../../assets/img/banner-bg.png") center / cover no-repeat,
+    #ffffff;
+  padding: 0 100px 110px;
+}
 .cd-more__inner { max-width: 1240px; margin: 0 auto; }
 .cd-more__heading {
   margin: 0 0 56px;
@@ -285,6 +292,7 @@
   padding: 30px 28px 34px;
   text-decoration: none;
   color: inherit;
+  background-color: #fff;
 }
 .cd-more-card__photo {
   display: block;

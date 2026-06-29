@@ -322,7 +322,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 91px;          /* image (x40.5 + 423) → text x514.5 */
+  gap: 70px;          /* image (x40.5 + 423) → text x514.5 */
 }
 .promise-row--reverse {
   flex-direction: row-reverse;

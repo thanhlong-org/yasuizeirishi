@@ -352,7 +352,7 @@
   -webkit-mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
           mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
 }
-.cs-deco--star-tr { top: 18px; right: -8px; }
+.cs-deco--star-tr { top: 19px; right: -8px; }
 .cs-deco--star-bl { bottom: 18px; left: -8px; }
 
 /* Frame draw-in animation (same as homepage Case) */

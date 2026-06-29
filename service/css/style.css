@@ -295,109 +295,563 @@
 }
 
 /* =============================================
-   Service blog (homepage Service look, flow layout, no heading)  —  Figma 4142:342
-   Blue gradient bg, image + desc (left), numbered list (right), slash/line/sparkle frame.
+   Service (Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹)
    ============================================= */
+/* Shared gradient wrapper for Service + Case */
+.service-case-bg {
+  width: 100%;
+  /* Figma Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹Ã£â€šÂ»Ã£â€šÂ¯Ã£â€šÂ·Ã£Æ’Â§Ã£Æ’Â³ fill: gradient spanning both inner blocks */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(74, 129, 199, 1) 47%,
+    rgba(36, 63, 97, 1) 100%
+  );
+}
+
 .service {
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(74,129,199,1) 47%, rgba(36,63,97,1) 100%);
-  padding: 90px 100px 100px;
+  width: 100%;
+  /* top + sides padding only — bottom gap comes from .case padding-top */
+  padding: 100px;
+  background: transparent;
 }
-.service__inner { position: relative; max-width: 1240px; margin: 0 auto; padding: 80px 6px; }
-.service__cols { position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 70px; }
-.service__left { width: 528px; flex-shrink: 0; }
+
+.service__inner {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  height: 803.04px; /* Figma spec minus heading offset 241.34px */
+}
+
+/* h2: "Service" decorative big + "Ã£â€šÂµÃ£Æ’Â¼Ã£Æ’â€œÃ£â€šÂ¹" smaller */
+.service__heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 597.06px;
+  height: 127px;
+  margin: 0;
+}
+.service__heading-en {
+  position: absolute;
+  top: 0;
+  left: 0.26px;
+  display: block;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 100px;
+  line-height: 1.25;
+  color: rgba(65, 99, 136, 0.2); /* fill_JKUYCN */
+  white-space: nowrap;
+}
+.service__heading-jp {
+  position: absolute;
+  top: 83.86px;
+  left: 0;
+  display: block;
+  font-family: var(--font-jp-serif);
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1;
+  letter-spacing: 5.25px;
+  color: #868181; /* fill_JUHZIY */
+}
+
+/* Top-right button "Ã¤Âºâ€¹Ã¤Â¾â€¹Ã¤Â¸â‚¬Ã¨Â¦Â§Ã£â€šâ€™Ã¨Â¦â€¹Ã£â€šâ€¹" Ã¢â‚¬â€  increased specificity to beat .detail-btn defined later */
+.detail-btn.service__btn {
+  position: absolute;
+  top: 54px; /* Figma spec */
+  left: 967px; /* Figma spec */
+}
+.detail-btn.service__btn-sp {
+  display: none; /* shown only on SP */
+}
+
+/* Consultant image (left, below heading) */
 .service__image {
-  width: 100%; aspect-ratio: 528 / 395; border-radius: 20px;
-  background: url("../../assets/img/service-consultant.png") center / cover no-repeat;
+  position: absolute;
+  top: 102.66px; /* 344 - 241.34 */
+  left: 35px;
+  width: 528px;
+  height: 395px;
+  background: url("../../assets/img/service-consultant.png") center/cover no-repeat;
 }
+
+/* Description text below image */
 .service__desc {
-  margin: 40px 0 0;
-  font-family: var(--font-jp-serif); font-weight: 400; font-size: 18px; line-height: 2; color: #000000;
+  position: absolute;
+  top: 521.66px; /* 763 - 241.34 */
+  left: 35px;
+  width: 528px;
+  font-family: var(--font-jp-serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 40px; /* Figma spec absolute lh */
+  color: #000;
 }
-/* Faint logo watermark behind the list */
+
+/* Decorative logo (semi-transparent, behind list) */
 .service__logo-deco {
-  position: absolute; bottom: 10px; right: -20px; width: 580px; height: auto;
-  pointer-events: none; z-index: 0; object-fit: contain;
+  position: absolute;
+  top: 40.66px; /* 282 - 241.34 */
+  left: 628px;
+  width: 610.53px;
+  height: 693px;
+  pointer-events: none;
+  object-fit: contain;
 }
 
-.service__list { flex: 1; min-width: 0; list-style: none; margin: 0; padding: 0; }
-.service-item {
-  position: relative; display: grid; grid-template-columns: 33px max-content 1fr;
-  align-items: center; column-gap: 30px; padding: 26px 0;
-  border-bottom: 1px solid rgba(76, 72, 72, 0.7); cursor: pointer;
+/* ===== Decorative frame lines around the service list =====
+   All positions are within .service__inner, derived from Figma:
+   list group origin (y=241.34) + child y offset within group. */
+.service__deco {
+  position: absolute;
+  pointer-events: none;
 }
-.service-item__num {
-  font-family: "Nova Cut", serif; font-weight: 400; font-size: 24px; line-height: 1;
-  background: linear-gradient(180deg, #00457C 0%, #007DE2 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+/* Disable generic data-reveal slide on the section Ã¢â‚¬â€  we use per-deco reveal instead */
+.service[data-reveal] {
+  opacity: 1; transform: none; transition: none;
 }
-.service-item__name { font-family: var(--font-jp-serif); font-weight: 700; font-size: 24px; line-height: 1; color: #4C4848; white-space: nowrap; }
-.service-item__en { font-family: "Padyakke Expanded One", serif; font-weight: 400; font-size: 18px; line-height: 1; color: #000; }
-.service-item__accent { position: absolute; left: 0; bottom: 0; width: 70px; height: 4px; background: #0340A4; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.service-item:hover .service-item__accent { width: 100%; }
+/* Service decorations: slash corners rotate in, horizontal lines draw out */
+.service__deco--slash-tl,
+.service__deco--slash-br {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+    opacity   0.5s ease 0.2s;
+}
+.service[data-reveal]:not(.is-visible) .service__deco--slash-tl,
+.service[data-reveal]:not(.is-visible) .service__deco--slash-br {
+  transform: rotate(-180deg) scale(0.3);
+  opacity: 0;
+}
+.service__deco--top-line {
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+.service__deco--bottom-line {
+  transform-origin: right center;
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+}
+.service[data-reveal]:not(.is-visible) .service__deco--top-line,
+.service[data-reveal]:not(.is-visible) .service__deco--bottom-line {
+  transform: scaleX(0);
+}
 
-/* Slot-machine text reveal (chars wrapped by js/script.js) */
-.slot-mask { position: relative; display: inline-block; overflow: hidden; line-height: 1.15; vertical-align: top; }
-.slot-orig, .slot-clone { display: inline-block; transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease; transition-delay: calc(var(--i, 0) * 0.025s); }
-.slot-clone { position: absolute; left: 0; top: 0; transform: translateY(100%); opacity: 0; }
-.service-item:hover .slot-orig { transform: translateY(-100%); opacity: 0; }
-.service-item:hover .slot-clone { transform: translateY(0); opacity: 1; }
-.service-item[data-reveal] { opacity: 1; transform: none; transition: none; }
-.service-item[data-reveal]:not(.is-visible) .slot-orig { transform: translateY(100%); opacity: 0; }
+/* Star sparkle reveal animations (mirror Case block) */
+.service__deco--star-tr,
+.service__deco--star-bl {
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s,
+    opacity   0.5s ease 0.6s;
+}
+.service[data-reveal]:not(.is-visible) .service__deco--star-tr,
+.service[data-reveal]:not(.is-visible) .service__deco--star-bl {
+  transform: rotate(-180deg) scale(0);
+  opacity: 0;
+}
 
-/* Frame deco: slash-tl + top line + sparkle-tr / sparkle-bl + bottom line + slash-br */
-.service__deco { position: absolute; pointer-events: none; z-index: 2; }
-.service[data-reveal] { opacity: 1; transform: none; transition: none; }
-.service__deco--top-line { top: 24px; left: 36px; right: 8px; height: 1px; background: rgba(76, 72, 72, 0.7); }
-.service__deco--bottom-line { bottom: 24px; left: 8px; right: 36px; height: 1px; background: rgba(76, 72, 72, 0.7); }
-.service__deco--slash-tl, .service__deco--slash-br { width: 64px; height: 64px; }
-.service__deco--slash-tl { top: -4px; left: -4px; }
-.service__deco--slash-br { bottom: -4px; right: -4px; }
-.service__deco--slash-tl::before, .service__deco--slash-br::before {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to bottom right,
+@media (prefers-reduced-motion: reduce) {
+  .service__deco--slash-tl, .service__deco--slash-br,
+  .service__deco--top-line, .service__deco--bottom-line,
+  .service__deco--star-tr, .service__deco--star-bl {
+    transition: none;
+  }
+}
+/* Top horizontal line: list-relative (29, 40.66) → inner (29, 40.66) */
+.service__deco--top-line {
+  top: 40.66px; /* 282 - 241.34 */
+  left: 29px;
+  width: 1211px;
+  height: 1px;
+  background: rgba(76, 72, 72, 0.7);
+}
+/* Bottom horizontal line: list-relative (0.24, 767.66) → inner (0.24, 767.66) */
+.service__deco--bottom-line {
+  top: 767.66px; /* 1009 - 241.34 */
+  left: 0.24px;
+  width: 1202.77px;
+  height: 1px;
+  background: rgba(76, 72, 72, 0.7);
+}
+/* Top-left diagonal slash: `\` slope */
+.service__deco--slash-tl {
+  top: 0px; /* 241.34 - 241.34 */
+  left: 0;
+  width: 69.38px;
+  height: 69.3px;
+}
+.service__deco--slash-tl::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
     transparent calc(50% - 0.5px),
     rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
     rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
-    transparent calc(50% + 0.5px));
+    transparent calc(50% + 0.5px)
+  );
 }
-.service__deco--star-tr, .service__deco--star-bl {
-  width: 16px; height: 16px; background-color: #B1B1B1;
-  -webkit-mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
-          mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+/* Bottom-right diagonal slash: `\` slope */
+.service__deco--slash-br {
+  top: 733.65px; /* 974.99 - 241.34 */
+  left: 1169.05px;
+  width: 69.43px;
+  height: 69.39px;
 }
-.service__deco--star-tr { top: 16px; right: -8px; }
-.service__deco--star-bl { bottom: 16px; left: -8px; }
-/* draw-in animation */
-.service__deco--slash-tl, .service__deco--slash-br { transition: transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s, opacity 0.5s ease 0.15s; }
-.service[data-reveal]:not(.is-visible) .service__deco--slash-tl,
-.service[data-reveal]:not(.is-visible) .service__deco--slash-br { transform: rotate(-180deg) scale(0.3); opacity: 0; }
-.service__deco--top-line { transform-origin: left center; transition: transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.35s; }
-.service__deco--bottom-line { transform-origin: right center; transition: transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.35s; }
-.service[data-reveal]:not(.is-visible) .service__deco--top-line,
-.service[data-reveal]:not(.is-visible) .service__deco--bottom-line { transform: scaleX(0); }
-.service__deco--star-tr, .service__deco--star-bl { transition: transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.6s, opacity 0.5s ease 0.6s; }
-.service[data-reveal]:not(.is-visible) .service__deco--star-tr,
-.service[data-reveal]:not(.is-visible) .service__deco--star-bl { transform: rotate(-180deg) scale(0); opacity: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .slot-orig, .slot-clone, .service-item__accent,
-  .service__deco--slash-tl, .service__deco--slash-br, .service__deco--top-line, .service__deco--bottom-line,
-  .service__deco--star-tr, .service__deco--star-bl { transition: none; }
+.service__deco--slash-br::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% - 0.5px),
+    rgba(76, 72, 72, 0.7) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
 }
 
-/* ----- Tablet (<=1024): stack, hide deco + logo ----- */
-@media (max-width: 1024px) {
-  .service { padding: 64px 48px 90px; }
-  .service__inner { padding: 0; }
-  .service__cols { flex-direction: column; gap: 40px; }
-  .service__left { width: 100%; max-width: 600px; align-self: center; }
-  .service__logo-deco, .service__deco { display: none; }
+/* Star sparkle decorations at top-right + bottom-left corners */
+.service__deco--star-tr,
+.service__deco--star-bl {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(76, 72, 72, 0.7);
+  -webkit-mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+          mask: url("../../assets/img/slossy-icon.svg") center / contain no-repeat;
+  display: block;
 }
+.service__deco--star-tr {
+  top: 32.66px; /* aligned with top horizontal line (y=40.66) */
+  right: -8px; /* extend slightly past right edge */
+}
+.service__deco--star-bl {
+  top: 759.66px; /* aligned with bottom horizontal line (y=767.66) */
+  left: -8px; /* extend slightly past left edge */
+}
+
+/* ===== Service items list (right column) ===== */
+.service__list {
+  position: absolute;
+  top: 0px; /* 241.34 - 241.34 */
+  left: 0;
+  width: 1240px;
+  height: 803.04px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each service item: number + Japanese name + English label + accent line */
+.service-item {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 33px max-content 1fr; /* num | name (auto) | english label */
+  align-items: center;
+  column-gap: 30px;
+  width: 100%;
+  height: 82px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(76, 72, 72, 0.7); /* fill_GFB5R9 - divider */
+}
+/* Figma y-positions for each item */
+.service-item:nth-of-type(1) { top: 65.55px; }
+.service-item:nth-of-type(2) { top: 172.66px; }
+.service-item:nth-of-type(3) { top: 279.66px; }
+.service-item:nth-of-type(4) { top: 386.66px; }
+.service-item:nth-of-type(5) { top: 494.34px; }
+.service-item:nth-of-type(6) { top: 601.54px; }
+
+/* All items start at x=617-618 from list origin */
+.service-item {
+  left: 618px;
+  /* limit width so divider doesn't cross logo decoration or border slashes */
+  width: 587px;
+}
+
+.service-item__num {
+  font-family: "Nova Cut", serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  /* Linear gradient text fill */
+  background: linear-gradient(180deg, #00457C 0%, #007DE2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.service-item__name {
+  font-family: var(--font-jp-serif);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  color: #4C4848;
+  white-space: nowrap;
+}
+.service-item__en {
+  font-family: "Padyakke Expanded One", serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1;
+  color: #000;
+}
+/* Blue accent line under each item, aligned with number */
+.service-item__accent {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 70px;
+  height: 4px;
+  background: #0340A4;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Hover: extend the blue underline to full item width */
+.service-item:hover .service-item__accent {
+  width: 100%;
+}
+.service-item { cursor: pointer; }
+
+/* ===== Slot-machine text reveal (per-char) ===== */
+.slot-mask {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.15;
+  vertical-align: top;
+}
+.slot-orig,
+.slot-clone {
+  display: inline-block;
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.45s ease;
+  transition-delay: calc(var(--i, 0) * 0.025s);
+}
+.slot-clone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(100%);
+  opacity: 0;
+}
+.service-item:hover .slot-orig {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.service-item:hover .slot-clone {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Scroll-into-view reveal: chars start hidden below mask, slide up when item enters viewport */
+.service-item[data-reveal] {
+  /* Disable generic data-reveal opacity/translate; we use per-char reveal */
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.service-item[data-reveal]:not(.is-visible) .slot-orig {
+  transform: translateY(100%);
+  opacity: 0;
+}
+/* When .is-visible class is added by IntersectionObserver, the override is dropped
+   and existing .slot-orig transition (with per-char stagger) animates back to default. */
+@media (prefers-reduced-motion: reduce) {
+  .slot-orig, .slot-clone { transition: none; }
+  .service-item__accent { transition: none; }
+}
+
+/* =============================================
+   Service — Tablet (≤ 1200px)
+   ============================================= */
+@media (max-width: 1200px) {
+  .service {
+    padding: 80px 48px;
+  }
+  .service__inner {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .service__heading,
+  .service__image,
+  .service__desc,
+  .service__list,
+  .service__logo-deco {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+  .detail-btn.service__btn {
+    position: static;
+    top: auto;
+    left: auto;
+    align-self: flex-end;
+  }
+  .service__image {
+    width: 100%;
+    max-width: 600px;
+    height: 360px;
+    align-self: center;
+  }
+  .service__logo-deco,
+  .service__deco {
+    display: none;
+  }
+  .service__list {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .service-item {
+    position: relative;
+    top: auto !important;
+    left: auto;
+    width: 100%;
+  }
+}
+
+/* =============================================
+   Service — SP (< 768px)
+   ============================================= */
 @media (max-width: 767px) {
-  .service { padding: 48px 20px 64px; }
-  .service__desc { font-size: 15px; margin-top: 28px; }
-  .service-item { grid-template-columns: 28px max-content 1fr; column-gap: 16px; padding: 18px 0; }
-  .service-item__num { font-size: 18px; }
-  .service-item__name { font-size: 15px; }
-  .service-item__en { font-size: 14px; }
-  .service-item__accent { width: 60px; }
+  .service {
+    padding: 40px 20px;
+  }
+  .service__inner {
+    gap: 24px;
+  }
+
+  /* Heading: scaled down per Features SP pattern */
+  .service__heading {
+    position: relative;
+    width: auto;
+    height: 67px;
+  }
+  .service__heading-en {
+    font-size: 50px;
+  }
+  .service__heading-jp {
+    top: 41px;
+    font-size: 18px;
+    letter-spacing: 2.7px;
+  }
+
+  /* Hide top-right button on SP; show SP-only bottom button */
+  .detail-btn.service__btn {
+    display: none;
+  }
+  .detail-btn.service__btn-sp {
+    display: flex; /* block-level so margin auto works */
+    margin: 40px auto 0;
+    width: 272px;
+    height: 50px;
+    font-size: 14px;
+  }
+  .service__btn-sp .detail-btn__edge--l,
+  .service__btn-sp .detail-btn__edge--r {
+    height: 30px;
+  }
+
+  /* Hide image + description text on SP (not in Figma SP design) */
+  .service__image,
+  .service__desc {
+    display: none;
+  }
+
+  /* Items: smaller per Figma SP spec */
+  .service__list {
+    width: auto;
+    gap: 0;
+    margin: 20px;
+    z-index: 1;
+  }
+  .service-item {
+    grid-template-columns: 28px max-content 1fr;
+    column-gap: 14px;
+    height: 54px;
+    padding-bottom: 16px;
+  }
+  .service-item__num {
+    font-size: 18px;
+  }
+  .service-item__name {
+    font-size: 14px;
+  }
+  .service-item__en {
+    font-size: 14px;
+  }
+  .service-item__accent {
+    width: 60px;
+    height: 4px;
+  }
+
+  /* Show and position decorative frame on SP */
+  .service__deco {
+    display: block;
+  }
+  .service__deco--slash-tl,
+  .service__deco--slash-br {
+    width: 40px;
+    height: 40px;
+  }
+  .service__deco--slash-tl {
+    top: 71px;
+    left: 0;
+  }
+  .service__deco--slash-br {
+    top: 440px;
+    left: auto;
+    right: 0;
+  }
+  .service__deco--top-line {
+    top: 91px;
+    left: 20px;
+    right: 10px;
+    width: auto;
+    height: 1px;
+  }
+  .service__deco--bottom-line {
+    top: 460px;
+    left: 10px;
+    right: 20px;
+    width: auto;
+    height: 1px;
+  }
+  .service__deco--star-tr {
+    top: 85px;
+    right: 0;
+    left: auto;
+    width: 12px;
+    height: 12px;
+  }
+  .service__deco--star-bl {
+    top: 454px;
+    left: 0;
+    right: auto;
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Center decorative background logo on SP */
+  .service__logo-deco {
+    display: block;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 280px;
+    opacity: 0.08;
+    z-index: 0;
+  }
+  /* Offset the list to match the homepage frame coordinates since subpage has no heading */
+  .service__list {
+    margin-top: 91px;
+  }
 }

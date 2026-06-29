@@ -322,7 +322,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 91px;          /* image (x40.5 + 423) → text x514.5 */
+  gap: 70px;          /* image (x40.5 + 423) → text x514.5 */
 }
 .promise-row--reverse {
   flex-direction: row-reverse;
@@ -610,8 +610,8 @@
    Figma 4192:756 — single row: photo + caption (left), heading + body (right).
    ============================================= */
 @media (min-width: 1025px) {
-  .msg .promise__inner { max-width: 1240px; padding: 0 100px; }
-  .msg .promise-row { justify-content: flex-start; gap: 110px; align-items: flex-start; }
+  .msg .promise__inner { max-width: 1240px; }
+  .msg .promise-row { justify-content: flex-start; gap: 90px; align-items: flex-start; }
   .msg .promise-row__media { width: 464px; }
   .msg .promise-row__photo { aspect-ratio: 464 / 560; }
   .msg .promise-title { font-size: 21px; font-weight: 600; line-height: 1.9; letter-spacing: 0.04em; }
@@ -619,7 +619,7 @@
   .msg .promise-title__line--2 { margin-left: 40px; }
   .msg .promise-text { margin-top: 44px; padding-left: 0; }
 }
-.msg-caption { display: flex; align-items: center; gap: 12px; margin-top: 30px; padding-left: 6px; }
+.msg-caption { position: relative; display: flex; align-items: center; gap: 12px; margin-top: -30px; margin-left: -20px;}
 .msg-caption__logo {
   flex-shrink: 0; width: 50px; height: 56px;
   background: url("../img/promise-deco.svg") center / contain no-repeat;

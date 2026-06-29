@@ -1,4 +1,4 @@
-﻿/* =============================================
+/* =============================================
    common.css
    Shared across all pages: base, scroll-reveal, layout helpers,
    site header + navbar, site footer, floating page-top.
@@ -387,11 +387,40 @@ html {
   font-weight: 500;
 }
 
+/* Sitemap privacy link (hidden on PC/Tablet by default) */
+.sitemap__privacy-sp {
+  display: none;
+}
+
+/* Footer Bottom Row */
+.site-footer__bottom {
+  margin: 48px 0 0;
+  padding-top: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-footer__privacy {
+  font-family: var(--font-jp-serif);
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.site-footer__privacy:hover {
+  opacity: 0.7;
+}
+
 /* Copyright */
 .site-footer__copy {
-  margin: 48px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  margin: 0;
+  padding: 0;
+  border-top: none;
   text-align: right;
   font-family: var(--font-en-serif);
   font-size: 13px;
@@ -463,11 +492,22 @@ html {
   .page-top__label {
     font-size: 10px;
   }
+  .sitemap__privacy-sp {
+    display: block;
+  }
+  .site-footer__bottom {
+    margin-top: 32px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .site-footer__privacy {
+    display: none;
+  }
   .site-footer__copy {
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    padding-top: 24px;
-    margin-top: 32px;
   }
 }
 
@@ -766,17 +806,33 @@ html {
   padding: 40px 30px;
   text-align: center;
   overflow: hidden;
+  text-decoration: none;
 }
 /* Broken-frame edges for Row 1 cards (4 segments with gaps at corners) */
 .cta-card__edge {
   position: absolute;
   background: rgba(255, 255, 255, 0.45);
   z-index: 1;
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              right 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cta-card__edge--t { top: 0; left: 24px; right: 24px; height: 1px; }
 .cta-card__edge--b { bottom: 0; left: 24px; right: 24px; height: 1px; }
 .cta-card__edge--l { left: 0; top: 30px; bottom: 30px; width: 1px; }
 .cta-card__edge--r { right: 0; top: 30px; bottom: 30px; width: 1px; }
+/* Close the edge gaps when hovering over the entire card */
+.cta-card:hover .cta-card__edge--t,
+.cta-card:hover .cta-card__edge--b {
+  left: 0;
+  right: 0;
+}
+.cta-card:hover .cta-card__edge--l,
+.cta-card:hover .cta-card__edge--r {
+  top: 0;
+  bottom: 0;
+}
 /* Row 2 only: each card gets a full border */
 .cta__row--image .cta-card { border: 1px solid rgba(255, 255, 255, 0.5); }
 /* Ghost icon background (Row 1 only — opacity baked into SVG) */
@@ -790,6 +846,12 @@ html {
   pointer-events: none;
   z-index: 0;
   object-fit: contain;
+  opacity: 0;
+}
+/* Show the background icon when hovering over the entire card */
+.cta-card:hover .cta-card__bg-icon {
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cta-card__title,
 .cta-card__desc,
@@ -829,6 +891,7 @@ html {
   letter-spacing: 0.05em;
   transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
+.cta-card:hover .cta-card__btn,
 .cta-card__btn:hover {
   background: rgba(91, 142, 200, 0.9);
   border-color: rgba(255, 255, 255, 0.7);
@@ -874,7 +937,12 @@ html {
   transform: none;
 }
 .cta-card[data-reveal] .cta-card__edge {
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, opacity 0.45s ease 0.2s;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+              opacity 0.45s ease 0.2s,
+              left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              right 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cta-card__edge--t, .cta-card__edge--b { transform-origin: center; }
 .cta-card__edge--l, .cta-card__edge--r { transform-origin: center; }
@@ -1310,8 +1378,8 @@ html {
   align-items: stretch;
   gap: 24px;
   flex: 1;                /* fill the item height; flexbox subtracts the margin (no overflow) */
-  margin: 7px 0;          /* leave room for the deco frame outside */
   padding: 20px;
+  background-color: #ffff;
 }
 .fcase-card__image {
   width: 100%;
@@ -1363,33 +1431,33 @@ html {
 .fcase-card__btn:hover .detail-btn__edge--b { left: 0; right: 0; width: auto; }
 
 /* ===== Decorations: slash corners + lines + stars (animated like homepage) ===== */
-.fcase-item .case-deco {
+.fcase-item .fcase-deco {
   position: absolute;
   pointer-events: none;
   z-index: 2;
 }
-.case-deco--tline,
-.case-deco--bline {
+.fcase-deco--tline,
+.fcase-deco--bline {
   left: 0;
   right: 0;
   height: 1px;
   background: #A0A8B3;
 }
-.case-deco--tline {
+.fcase-deco--tline {
   top: 0;
 }
-.case-deco--bline {
+.fcase-deco--bline {
   bottom: 0;
 }
-.case-deco--tl,
-.case-deco--br {
+.fcase-deco--tl,
+.fcase-deco--br {
   width: 30px;
   height: 30px;
 }
-.case-deco--tl { top: -14px; left: -15px; }
-.case-deco--br { bottom: -14px; right: -15px; }
-.case-deco--tl::before,
-.case-deco--br::before {
+.fcase-deco--tl { top: -14px; left: -15px; }
+.fcase-deco--br { bottom: -14px; right: -15px; }
+.fcase-deco--tl::before,
+.fcase-deco--br::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1403,43 +1471,43 @@ html {
   );
 }
 /* Stars — slossy-icon recoloured grey via mask */
-.case-deco--star-tr,
-.case-deco--star-bl {
+.fcase-deco--star-tr,
+.fcase-deco--star-bl {
   width: 15px;
   height: 15px;
   background-color: #A0A8B3;
   -webkit-mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
           mask: url("../assets/img/slossy-icon.svg") center / contain no-repeat;
 }
-.case-deco--star-tr { top: -7px; right: -9px; }
-.case-deco--star-bl { bottom: -7px; left: -9px; }
+.fcase-deco--star-tr { top: -7px; right: -9px; }
+.fcase-deco--star-bl { bottom: -7px; left: -9px; }
 
 /* Reveal animation (mirror homepage): slashes rotate in, lines draw, stars pop */
-.case-deco--tl,
-.case-deco--br {
+.fcase-deco--tl,
+.fcase-deco--br {
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.5s ease 0.15s;
 }
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--tl,
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--br {
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--tl,
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--br {
   transform: rotate(-180deg) scale(0.3);
   opacity: 0;
 }
-.case-deco--tline { transform-origin: left center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
-.case-deco--bline { transform-origin: right center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--tline,
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--bline { transform: scaleX(0); }
-.case-deco--star-tr,
-.case-deco--star-bl {
+.fcase-deco--tline { transform-origin: left center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.fcase-deco--bline { transform-origin: right center; transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s; }
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--tline,
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--bline { transform: scaleX(0); }
+.fcase-deco--star-tr,
+.fcase-deco--star-bl {
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, opacity 0.5s ease 0.6s;
 }
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--star-tr,
-.fcase-item[data-reveal]:not(.is-visible) .case-deco--star-bl {
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--star-tr,
+.fcase-item[data-reveal]:not(.is-visible) .fcase-deco--star-bl {
   transform: rotate(-180deg) scale(0);
   opacity: 0;
 }
 @media (prefers-reduced-motion: reduce) {
-  .case-deco--tl, .case-deco--br, .case-deco--tline, .case-deco--bline,
-  .case-deco--star-tr, .case-deco--star-bl { transition: none; }
+  .fcase-deco--tl, .fcase-deco--br, .fcase-deco--tline, .fcase-deco--bline,
+  .fcase-deco--star-tr, .fcase-deco--star-bl { transition: none; }
 }
 
 /* =============================================
@@ -1482,6 +1550,9 @@ html {
   height: 4px;
   background: #0340A4;
   transition: width 0.35s ease, left 0.35s ease;
+}
+.detail-btn__accent.detail-btn__accent--highlight {
+  background: #2CA5A1;
 }
 .detail-btn:hover .detail-btn__accent { left: 0; width: 100%; }
 
