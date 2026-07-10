@@ -137,18 +137,28 @@
   // ---------------------------------------------
   function initHamburger() {
     var btn = document.getElementById("hamburger");
-    var nav = document.getElementById("site-nav");
+    var nav = document.getElementById("sp-menu");
     if (!btn || !nav) return;
+    var closeBtn = document.getElementById("spMenuClose");
 
     btn.addEventListener("click", function () {
       var opened = nav.classList.toggle("is-open");
       btn.classList.toggle("is-active", opened);
       btn.setAttribute("aria-expanded", opened ? "true" : "false");
       btn.setAttribute("aria-label", opened ? "メニューを閉じる" : "メニューを開く");
+      nav.setAttribute("aria-hidden", opened ? "false" : "true");
       document.body.style.overflow = opened ? "hidden" : "";
     });
 
-    // Close drawer when a nav link is clicked
+    // Close (X button)
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        closeDrawer();
+        btn.focus();
+      });
+    }
+
+    // Close drawer when a menu link is clicked
     nav.addEventListener("click", function (e) {
       var link = e.target.closest("a");
       if (link && nav.classList.contains("is-open")) {
@@ -169,6 +179,7 @@
       btn.classList.remove("is-active");
       btn.setAttribute("aria-expanded", "false");
       btn.setAttribute("aria-label", "メニューを開く");
+      nav.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
     }
   }

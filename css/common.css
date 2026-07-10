@@ -650,6 +650,168 @@ html {
 }
 
 /* =============================================
+   SP toggle menu (Figma 3357:124) — full-screen navy overlay
+   ============================================= */
+.sp-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1100; /* above the sticky header (z-index 1000) */
+  display: none;
+  flex-direction: column;
+  background: linear-gradient(100deg, #00457c 0%, #013a68 100%);
+  color: #ffffff;
+  overflow: hidden;
+}
+.sp-menu__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #d5dde8;
+  color: #1b3d6e;
+}
+.sp-menu__watermark {
+  position: absolute;
+  left: -24px;
+  bottom: 180px;
+  width: 330px;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+  /* logo-icon.svg is dark navy → recolour to white so it reads faintly on the
+     navy panel (the SVG keeps its built-in 0.1 opacity). */
+  filter: brightness(0) invert(1);
+}
+.sp-menu__scroll {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 82px 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Head row (group + single) — title + arrow box, underlined */
+.sp-menu__group { padding: 10px 20px 20px; }
+.sp-menu__single { padding: 9px 20px; }
+.sp-menu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  color: #ffffff;
+}
+.sp-menu__head-title {
+  font-family: var(--font-jp-serif);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+}
+.sp-menu__head-box {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+}
+.sp-menu__head-box svg { width: 8px; height: 13px; }
+
+/* Sub list */
+.sp-menu__sub {
+  list-style: none;
+  margin: 0;
+  padding: 14px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sp-menu__sub a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  font-family: var(--font-jp-serif);
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+}
+.sp-menu__chev { flex-shrink: 0; display: inline-flex; color: rgba(255, 255, 255, 0.9); }
+.sp-menu__chev svg { width: 8px; height: 14px; }
+
+/* Foot — CTA + TEL */
+.sp-menu__foot {
+  margin-top: 26px;
+  padding: 16px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.sp-menu__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 195px;
+  height: 60px;
+  padding: 0 24px;
+  border-radius: 50px;
+  background: #4a81c7;
+  color: #ffffff;
+  font-family: var(--font-jp-serif);
+  font-size: 16px;
+  text-decoration: none;
+}
+.sp-menu__tel {
+  margin-top: 6px;
+  font-family: var(--font-en-serif);
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+.sp-menu__tel-num { font-size: 20px; margin-left: 8px; }
+.sp-menu__hours {
+  margin: 0;
+  font-family: var(--font-jp-serif);
+  font-size: 14px;
+  color: #ffffff;
+}
+
+/* Only active on tablet/SP (where the hamburger is shown).
+   Slide in from the left; kept in layout so the transform can animate. */
+@media (max-width: 1024px) {
+  .sp-menu {
+    display: flex;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
+  }
+  .sp-menu.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+@media (max-width: 1024px) and (prefers-reduced-motion: reduce) {
+  .sp-menu,
+  .sp-menu.is-open { transition: none; }
+}
+
+/* =============================================
    Header â€” Tablet (768 - 1024)
    ============================================= */
 @media (max-width: 1200px) {

@@ -374,7 +374,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: url("../img/promise-stripe.png") center / cover no-repeat;
+  background: url("../../assets/img/promise-stripe.png") center / cover no-repeat;
   mix-blend-mode: overlay;
   opacity: 0.45;
   pointer-events: none;
